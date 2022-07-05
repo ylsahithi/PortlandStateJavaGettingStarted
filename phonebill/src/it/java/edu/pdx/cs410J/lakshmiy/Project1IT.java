@@ -66,7 +66,7 @@ void testNoCommandLineArguments() {
 
     @Test
     void testMainWithMoreArgs(){
-        MainMethodResult result = invokeMain(Project1.class, "-print” , “-readme”, “sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34", "additional");
+        MainMethodResult result = invokeMain(Project1.class, "-print" , "-readme", "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34", "additional");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project1.More_Num_args));
     }
 

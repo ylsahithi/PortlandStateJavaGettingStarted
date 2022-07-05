@@ -30,6 +30,9 @@ public class Project1 {
 //    System.out.println("check line");
 
 //        System.exit(0);
+//    for (int i = 0; i < args.length; i++){
+//      System.out.println(args[i]);
+//    }
 
     if(!validateInputArgsCount(args)) {
       return;
@@ -84,13 +87,15 @@ public class Project1 {
        return printErrorMessage(No_Print_args);
         ///add print method
 //        System.exit(0);
-      } else {
-       return printErrorMessage(Invalid_options);
       }
-    } else if (args.length > 9) {
+      else {
+        return printErrorMessage(Invalid_args);
+      }
+    }
+    else if (args.length > 9) {
      return printErrorMessage(More_Num_args);
     } else if ((args.length < 7) && (args.length > 2)) {
-     return printErrorMessage("");
+     return printErrorMessage(Less_Num_args);
     } else if (args.length == 7) {
       System.out.println("entered");
       if (args[0].equalsIgnoreCase("-readme") || args[0].equalsIgnoreCase("-print")) {
