@@ -160,9 +160,9 @@ public class Project1 {
       } else {
         PhoneCall callData = new PhoneCall(args, 1);
         PhoneBill cust = new PhoneBill(args[1], callData);
-        printErrorMessage(callData.toString());
         if (args[0].equalsIgnoreCase("-print")) {
           System.out.println(callData.toString());
+          printErrorMessage(callData.toString());
         }
         else {
           printErrorMessage(Invalid_options);
@@ -176,9 +176,9 @@ public class Project1 {
       } else {
         PhoneCall callData = new PhoneCall(args, 2);
         PhoneBill cust = new PhoneBill(args[2], callData);
-        printErrorMessage(callData.toString());
         if (args[0].equalsIgnoreCase("-print") || args[1].equalsIgnoreCase("-print") ) {
           System.out.println(callData.toString());
+          printErrorMessage(callData.toString());
         }
       }
       if (!(args[0].equalsIgnoreCase("-readme") || args[1].equalsIgnoreCase("-print") ||

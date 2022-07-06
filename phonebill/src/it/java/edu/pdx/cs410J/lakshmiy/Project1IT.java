@@ -61,13 +61,6 @@ class Project1IT extends InvokeMainTestCase {
         assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Invalid_args));
     }
 
-    //    @Test
-//    void testMainWithOnlyOptionsPassedinAnyorder(){
-//        MainMethodResult result = invokeMain(Project1.class, "-readme", "-print");
-//        MainMethodResult result1 = invokeMain(Project1.class, "-print", "-readme");
-//
-////        assertThat(assertThat(result.getTextWrittenToStandardError(), containsString("No arguments passed to print")))  (assertThat(result1.getTextWrittenToStandardError(), containsString("No arguments passed to print"))));
-//    }
     /**
      * Tests that invoking the main method with only 4 arguments
      */
@@ -101,6 +94,54 @@ class Project1IT extends InvokeMainTestCase {
     void testMainWithExactArgsNooptions(){
         MainMethodResult result = invokeMain(Project1.class,  "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+    }
+
+
+    /**
+     * Tests that invoking the main method with 7 arguments with optional arg throws error
+     */
+    @Test
+    void testMainWithInvalidArgs(){
+        MainMethodResult result = invokeMain(Project1.class,  "-print" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Less_Num_args));
+    }
+
+    /**
+     * Tests that invoking the main method with 8 arguments with optional arg throws no error
+     */
+    @Test
+    void testMainWithEightArgs(){
+        MainMethodResult result = invokeMain(Project1.class,  "-print", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+    }
+
+
+    /**
+     * Tests that invoking the main method with 8 arguments with invalid optional arg throws error
+     */
+    @Test
+    void testMainWithEightInvalidOptArgs(){
+        MainMethodResult result = invokeMain(Project1.class,  "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Invalid_options));
+    }
+
+
+    /**
+     * Tests that invoking the main method with 9 arguments with valid optional arg throws no error
+     */
+    @Test
+    void testMainWithNinewithOptArgs(){
+        MainMethodResult result = invokeMain(Project1.class,  "-print", "-readme", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Readme_txt));
+    }
+
+    /**
+     * Tests that invoking the main method with 9 arguments with invalid optional arg throws error
+     */
+    @Test
+    void testMainWithNinewithInvalidOptArgs(){
+        MainMethodResult result = invokeMain(Project1.class,  "-opt1", "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Invalid_options));
     }
 
     /**
