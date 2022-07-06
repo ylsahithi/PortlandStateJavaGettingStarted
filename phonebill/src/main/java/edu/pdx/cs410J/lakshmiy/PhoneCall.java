@@ -20,7 +20,7 @@ public class PhoneCall extends AbstractPhoneCall {
    * Custom constructor with list of strings as input it is specific to testing Phonecall Test java class
    * as it does not requires options to be passed in arguments
    * it assigns input values to private members of class
-   * @param : list of strings user arguments
+   * @param args
    */
   public PhoneCall(String[] args) {
     this.callerNumber = args[1];
@@ -33,7 +33,8 @@ public class PhoneCall extends AbstractPhoneCall {
    * Custom constructor with list of strings and position of customer name as input (if options present)
    * it assigns input values to private members of class
    * This constructor takes care if options are present and varying total user arguments length
-   * @param : list of strings user arguments, along with position of caller number in the arguments
+   * @param args
+   * @param argPos
    *
    */
   public PhoneCall(String[] args, int argPos) {
@@ -44,40 +45,44 @@ public class PhoneCall extends AbstractPhoneCall {
 
   }
 
-  @Override
+
   /**
    * This is get function to return caller number
-   * @return : string
+   *
    */
+  @Override
   public String getCaller() {
     return this.callerNumber;
 
   }
 
-  @Override
+
   /**
    * This is get function to return callee number
-   * @return : String
+   *
    */
+  @Override
   public String getCallee() {
     return this.calleeNumber;
 
   }
 
-  @Override
+
   /**
    * This is get function to return begin time
-   * @return : string
+   *
    */
+  @Override
   public String getBeginTimeString(){
     return this.begin;
 
   }
 
-  @Override
+
   /**
    * This is get function to return end time
    */
+  @Override
   public String getEndTimeString() {
     return this.end;
 

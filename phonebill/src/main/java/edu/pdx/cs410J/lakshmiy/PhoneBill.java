@@ -26,27 +26,30 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     addPhoneCall(call);
   }
 
-  @Override
+
   /**
    * get function to return customer name
    */
+  @Override
   public String getCustomer() {
     return this.customer;
   }
 
-  @Override
+
   /**
-   * Function to ass phone call to the class object
+   * Function to add phone call to the class object
    */
+  @Override
   public void addPhoneCall(PhoneCall call) {
     this.phoneLog.add(call);
 
   }
 
-  @Override
+
   /**
    * get function to return phone call array list
    */
+  @Override
   public Collection<PhoneCall> getPhoneCalls() {
     return this.phoneLog;
 

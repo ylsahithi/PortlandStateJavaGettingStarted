@@ -32,18 +32,19 @@ public class Project1 {
    * Main function for the application
    * args are in the format : "opt1" " opt2" "name" "callee number"
    * "caller number" "begin time" "end time"
-   * @param -option1 -option2 (-readme -print)
+   * -option1 -option2 (-readme -print)
    *  optional args
-   * @param -name
+   * -name
    *  Customer name
-   * @param -caller number
+   *  -caller number
    *  caller phone number
-   * @param -callee number
+   *  -callee number
    *    callee phone number
-   * @param - begin time
+   *  - begin time
    *     Start time for the phone call
-   * @param - end time
+   *  - end time
    *      End time for phone call
+   * @param args
    *
    *
    */
@@ -54,8 +55,8 @@ public class Project1 {
   /**
    * This function returns void and prints contents of readme file
    * It is called when user arguments has readme option
-   * @return void
-   * @param -readme file from resource folder
+   * return void
+   *
    */
   public static void printREADMEOption(){
     BufferedReader br = null;
@@ -77,8 +78,8 @@ public class Project1 {
 
   /**
    *  This method is used to print error message in the application
-   *  @param  : String which is error message
-   *  @return : boolean false
+   *  @param  message
+   *
    */
   public static void printErrorMessage(String message) {
     System.err.println(message);
@@ -88,8 +89,9 @@ public class Project1 {
   /**
    *  This method validated number of arguments passed by user,
    *  it returns false and appropriate error message if invalid arguments are passed
-   *  @param  : list of strings args
-   *  @return : boolean
+   *  return type is  boolean
+   *  @param  args
+   *
    */
   public static void validateInputArgsCount(String[] args) {
     /**
@@ -187,13 +189,14 @@ public class Project1 {
     return;
   }
 
-  @VisibleForTesting
+
   /**
    * This method validates each argument individually and returns true if arguments are valid
-   * it checks for valid phone numbers date and time in input args
-   * @param : list of strings
-   * @return : boolean
+   * it checks for valid phone numbers date and time in input args return type is boolean
+   * @param args
+   *
    */
+  @VisibleForTesting
   public static boolean validateEachArg(String[] args) {
     if (args.length == 7){
       if ((checkForvalidString(args[0])) && (isValidPhoneNumber(args[1])) && (isValidPhoneNumber(args[2])) && (checkForValidDate(args[3])) && (checkForValidTime(args[4]))
@@ -216,12 +219,14 @@ public class Project1 {
     return false;
   }
 
-  @VisibleForTesting
+
   /**
    * This method validates each customer name argument, it checks for valid string as input
-   * @param : customer name as string
-   * @return : boolean
+   * return type is boolean
+   * @param name
+   *
    */
+  @VisibleForTesting
   public static boolean checkForvalidString(String name) {
     if (name.trim().isEmpty() || name.length() == 1 || (name.replaceAll("[^a-zA-Z]", "").length() == 0)) {
       printErrorMessage("Invalid customer name");
@@ -231,12 +236,14 @@ public class Project1 {
     return true;
   }
 
-  @VisibleForTesting
+
   /**
    * This method validates phone number value of the arguments
-   * @param: phone number as string
-   * @return : boolean
+   * return type is boolean
+   * @param phoneNumber
+   *
    */
+  @VisibleForTesting
   static boolean isValidPhoneNumber(String phoneNumber) {
     if (phoneNumber.length() < 10) {
       printErrorMessage("Invalid phone number, number of digits less than 10");
@@ -248,12 +255,14 @@ public class Project1 {
     return true;
   }
 
-  @VisibleForTesting
+
   /**
    * This method validates DAte value in args checks fi date format is as expected
-   * @param : Date as string
-   * @return : boolean
+   * return type is boolean
+   * @param date
+   *
    */
+  @VisibleForTesting
   public static boolean checkForValidDate(String date) {
     try {
       SimpleDateFormat validFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -273,8 +282,9 @@ public class Project1 {
 
   /**
    * This method validates Time value in args checks if it is valid
-   * @param : Time as string
-   * @return : boolean
+   * return type is  boolean
+   * @param time
+   *
    */
   @VisibleForTesting
   public static boolean checkForValidTime(String time) {
