@@ -16,7 +16,8 @@ import java.util.Date;
 public class Project1 {
   /**  Public variables to pass error strings to print error function
    * These variables are used in test case validations
-   * **/
+   *
+   */
   public static final String Missing_args = "No args provided to run, required atleast 7 args";
   public static final String Invalid_args = "Invalid arguments passed";
   public static final String Invalid_options = "Invalid options provided as arguments";
@@ -27,21 +28,35 @@ public class Project1 {
 
 
   /**
-   author @yalam2@pdx.edu
-   Main function for the application
-   args are in the format : "opt1" " opt2" "name" "callee number"
-   "caller number" "begin time" "end time"
+   * author @yalam2@pdx.edu
+   * Main function for the application
+   * args are in the format : "opt1" " opt2" "name" "callee number"
+   * "caller number" "begin time" "end time"
+   * @param -option1 -option2 (-readme -print)
+   *  optional args
+   * @param -name
+   *  Customer name
+   * @param -caller number
+   *  caller phone number
+   * @param -callee number
+   *    callee phone number
+   * @param - begin time
+   *     Start time for the phone call
+   * @param - end time
+   *      End time for phone call
+   *
+   *
    */
   public static void main(String[] args) {
     validateInputArgsCount(args);
   }
 
   /**
-   This function returns void and prints contents of readme file
-   It is called when user arguments has readme option
+   * This function returns void and prints contents of readme file
+   * It is called when user arguments has readme option
+   * @return void
+   * @param -readme file from resource folder
    */
-
-
   public static void printREADMEOption(){
     BufferedReader br = null;
     try {
@@ -62,8 +77,8 @@ public class Project1 {
 
   /**
    *  This method is used to print error message in the application
-   input : String which is error message
-   return : boolean false
+   *  @param  : String which is error message
+   *  @return : boolean false
    */
   public static void printErrorMessage(String message) {
     System.err.println(message);
@@ -72,15 +87,22 @@ public class Project1 {
 
   /**
    *  This method validated number of arguments passed by user,
-   it returns false and error message if invalid arguments are passed
-   Input : list of strings args
-   return : boolean
+   *  it returns false and appropriate error message if invalid arguments are passed
+   *  @param  : list of strings args
+   *  @return : boolean
    */
   public static void validateInputArgsCount(String[] args) {
+    /**
+     * If there are no arguments passed to main function
+     */
     if (args.length == 0) {
       printErrorMessage(Missing_args);
       return;
     }
+    /**
+     * If there are only one argument passed if the argument is type
+     * of optional arguments it returns error message
+     */
     else if (args.length == 1) {
       if (args[0].equalsIgnoreCase("-readme")) {
         printREADMEOption();
@@ -91,17 +113,30 @@ public class Project1 {
         printErrorMessage(Invalid_args);
         return; }
     }
+    /**
+     * If readme is one of the arguments then it prints readme and exit
+     * prints read me in system error
+     */
     else if (args[0].equalsIgnoreCase("-readme") || args[1].equalsIgnoreCase("-readme")) {
       printREADMEOption();
       printErrorMessage(Readme_txt);
       return;
     }
+    /**
+     * If more than 9 args are passed
+     */
     else if (args.length > 9) {
       printErrorMessage(More_Num_args);
       return;
+      /**
+       * If more than 2 and less than 7 args are passed
+       */
     } else if ((args.length < 7) && (args.length > 2)) {
       printErrorMessage(Less_Num_args);
       return;
+      /**
+       * If valid arguments are passed in expected order.
+       */
     } else if (args.length == 7) {
       if (args[0].equalsIgnoreCase("-print")) {
         printErrorMessage(Less_Num_args);
@@ -154,10 +189,10 @@ public class Project1 {
 
   @VisibleForTesting
   /**
-   This method validates each argument individually and returns true if arguments are valid
-   it checks for valid phone numbers date and time in input args
-   input : list of strings
-   return : boolean
+   * This method validates each argument individually and returns true if arguments are valid
+   * it checks for valid phone numbers date and time in input args
+   * @param : list of strings
+   * @return : boolean
    */
   public static boolean validateEachArg(String[] args) {
     if (args.length == 7){
@@ -183,9 +218,9 @@ public class Project1 {
 
   @VisibleForTesting
   /**
-   This method validates each customer name argument, it checks for valid string as input
-   input : customer name as string
-   return : boolean
+   * This method validates each customer name argument, it checks for valid string as input
+   * @param : customer name as string
+   * @return : boolean
    */
   public static boolean checkForvalidString(String name) {
     if (name.trim().isEmpty() || name.length() == 1 || (name.replaceAll("[^a-zA-Z]", "").length() == 0)) {
@@ -198,9 +233,9 @@ public class Project1 {
 
   @VisibleForTesting
   /**
-   This method validates phone number value of the arguments
-   input : phone number as string
-   return : boolean
+   * This method validates phone number value of the arguments
+   * @param: phone number as string
+   * @return : boolean
    */
   static boolean isValidPhoneNumber(String phoneNumber) {
     if (phoneNumber.length() < 10) {
@@ -215,9 +250,9 @@ public class Project1 {
 
   @VisibleForTesting
   /**
-   This method validates DAte value in args checks fi date format is as expected
-   input : Date as string
-   return : boolean
+   * This method validates DAte value in args checks fi date format is as expected
+   * @param : Date as string
+   * @return : boolean
    */
   public static boolean checkForValidDate(String date) {
     try {
@@ -237,9 +272,9 @@ public class Project1 {
   }
 
   /**
-   This method validates Time value in args checks if it is valid
-   input : Time as string
-   return : boolean
+   * This method validates Time value in args checks if it is valid
+   * @param : Time as string
+   * @return : boolean
    */
   @VisibleForTesting
   public static boolean checkForValidTime(String time) {
