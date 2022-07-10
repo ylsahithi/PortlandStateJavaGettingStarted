@@ -22,6 +22,7 @@ public class TextDumperTest {
     dumper.dump(bill);
 
     String text = sw.toString();
+    System.out.println(text);
     assertThat(text, containsString(customer));
   }
 
@@ -30,9 +31,10 @@ public class TextDumperTest {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
 
-    File textFile = new File(tempDir, "apptbook.txt");
+    File textFile = new File("/Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022", "apptbook.txt");
     TextDumper dumper = new TextDumper(new FileWriter(textFile));
     dumper.dump(bill);
+    System.out.println(bill.getCustomer());
 
     TextParser parser = new TextParser(new FileReader(textFile));
     PhoneBill read = parser.parse();
