@@ -281,7 +281,7 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void TestMainwithEmptyFilename(){
-        String dir = "src/test/resources";
+        String dir = "src/test/resources/";
         MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir, "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString("invalid entry as file name parameter"));
     }
@@ -289,14 +289,14 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void TestMainwithExistingFilename(){
         String dir = "src/test/resources";
-        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"empty-file1.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"/empty-file1.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     @Test
     void TestMainwithnewCustomerFilename(){
         String dir = "src/test/resources";
-        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"/empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
