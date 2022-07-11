@@ -7,50 +7,58 @@ import java.io.*;
 import java.util.Collection;
 
 public class TextDumper implements PhoneBillDumper<PhoneBill> {
-  private final Writer writer;
-//  private String fileName;
+    private final Writer writer;
 
-  public TextDumper(Writer writer) {
-    this.writer = writer;
-  }
-
-  public TextDumper(String filename) throws IOException,IllegalArgumentException {
-      System.out.println(filename);
-      if (filename.isEmpty() || filename == null) {
-        throw new IllegalArgumentException("Expected filename but got a null");
-      }
-
-      File fle = new File(filename);
-      if(fle.length() == 0){
-        System.out.println("File is empty creating a file with given name");
-//        fle.createNewFile();
-      }
-      Writer Writ = new FileWriter(fle);
-      this.writer = Writ;
-//    this.fileName = filename;
+    /**
+     * constructor class for Textdumper
+     * @param writer
+     */
+    public TextDumper(Writer writer) {
+        this.writer = writer;
     }
 
-
-
-  @Override
-  public void dump(PhoneBill bill) {
-    try {
-      Collection<PhoneCall> custlog = bill.getPhoneCalls();
-      if(custlog.isEmpty()){
-         this.writer.append(bill.getCustomer());
-      }
-      else {
-        for (PhoneCall call : custlog) {
-          this.writer.append(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] + "," +
-                  call.getBeginTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[0] + "," + call.getEndTimeString().split(" ")[1] + "\n");
+    /**
+     * This constructor checks if filename is empty and creates new file
+     * @param filename
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
+    public TextDumper(String filename) throws IOException,IllegalArgumentException {
+        System.out.println(filename);
+        if (filename.isEmpty() || filename == null) {
+            throw new IllegalArgumentException("Expected filename but got a null");
         }
-      }
-      this.writer.flush();
-//      pw.close();
-      this.writer.close();
+        File fle = new File(filename);
+        if(fle.length() == 0){
+            System.out.println("File is empty creating a file with given name");
+        }
+        Writer Writ = new FileWriter(fle);
+        this.writer = Writ;
     }
-    catch (Exception e) {
-      throw new RuntimeException(e);
+
+    /**
+     * this function writes phonecall data into text file
+     * @param bill
+     */
+
+    @Override
+    public void dump(PhoneBill bill) {
+        try {
+            Collection<PhoneCall> custlog = bill.getPhoneCalls();
+            if(custlog.isEmpty()){
+                this.writer.append(bill.getCustomer());
+            }
+            else {
+                for (PhoneCall call : custlog) {
+                    this.writer.append(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] + "," +
+                            call.getBeginTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[0] + "," + call.getEndTimeString().split(" ")[1] + "\n");
+                }
+            }
+            this.writer.flush();
+            this.writer.close();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 }

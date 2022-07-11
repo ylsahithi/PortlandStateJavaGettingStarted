@@ -12,6 +12,9 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class TextDumperTest {
 
+  /**
+   * Test for checking customer name in file
+   */
   @Test
   void appointmentBookOwnerIsDumpedInTextFormat() {
     String customer = "Test Phone Bill";
@@ -26,6 +29,12 @@ public class TextDumperTest {
     assertThat(text, containsString(customer));
   }
 
+  /**
+   * This test checks checks for file with valid customername entry
+   * @param tempDir
+   * @throws IOException
+   * @throws ParserException
+   */
   @Test
   void canParseTextWrittenByTextDumper(@TempDir File tempDir) throws IOException, ParserException {
     String customer = "Test Phone Bill";

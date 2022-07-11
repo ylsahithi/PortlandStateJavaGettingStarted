@@ -95,7 +95,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithExactArgs() {
         MainMethodResult result = invokeMain(Project2.class, "-print", "-opt1","-textFile project2.txt", "sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
     }
 
     /**
@@ -104,7 +104,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithExactArgsNooptions() {
         MainMethodResult result = invokeMain(Project2.class, "sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
     }
 
 
@@ -123,7 +123,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithEightArgs() {
         MainMethodResult result = invokeMain(Project2.class, "-print", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
     }
 
     @Test
@@ -277,8 +277,31 @@ public class Project2IT extends InvokeMainTestCase  {
     }
 
     /**
-     * Tests with file changes
+     * Tests with different user entries in file name option
      */
+    @Test
+    void TestMainwithEmptyFilename(){
+        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("invalid entry as file name parameter"));
+    }
+
+    @Test
+    void TestMainwithExistingFilename(){
+        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
+    }
+
+    @Test
+    void TestMainwithnewCustomerFilename(){
+        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/empty-file2.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
+    }
+
+    @Test
+    void testMainNullTextFilergs() {
+        MainMethodResult result = invokeMain(Project2.class, "-textFile ", "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("File name passed in argument is Null"));
+    }
 }
 
 
