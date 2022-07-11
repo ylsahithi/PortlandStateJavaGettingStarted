@@ -40,7 +40,7 @@ public class TextDumperTest {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
 
-    File textFile = new File("/Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022", "apptbook.txt");
+    File textFile = new File(tempDir, "apptbook.txt");
     TextDumper dumper = new TextDumper(new FileWriter(textFile));
     dumper.dump(bill);
     System.out.println(bill.getCustomer());
