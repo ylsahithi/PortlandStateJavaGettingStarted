@@ -281,25 +281,29 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void TestMainwithEmptyFilename(){
-        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        String dir = "src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir, "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString("invalid entry as file name parameter"));
     }
 
     @Test
     void TestMainwithExistingFilename(){
-        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        String dir = "src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"empty-file1.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     @Test
     void TestMainwithnewCustomerFilename(){
-        MainMethodResult result = invokeMain(Project2.class, "-textFile /Users/sahithiyalamarthi/Desktop/PortlandStateJavaSummer2022/empty-file2.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        String dir = "src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     @Test
     void testMainNullTextFilergs() {
-        MainMethodResult result = invokeMain(Project2.class, "-textFile ", "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        String dir = "src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile " , "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString("File name passed in argument is Null"));
     }
 }
