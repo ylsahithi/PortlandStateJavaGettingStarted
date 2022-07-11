@@ -16,7 +16,6 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
    * Customer is added as parameter because if the file is null,
    * we need to pass customer name for phone bill object creation
    * @param reader
-   * @throws IOException
    */
   public TextParser(Reader reader,String customer)  {
     this.reader = reader;
