@@ -74,7 +74,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
 //        return new PhoneBill(this.customer);
       }
 //      else {
-        if(this.customer != ""){
+        if(this.customer != null){
           if(!(this.customer.equalsIgnoreCase(linesList.get(0).split(",")[0]))){
             System.err.println("customer name is different from the entry in file");
             return new PhoneBill(this.customer);
