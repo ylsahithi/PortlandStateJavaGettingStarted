@@ -15,12 +15,18 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
   }
 
   public TextDumper(String filename) throws IOException,IllegalArgumentException {
-    if(filename.isEmpty() || filename == null){
-      throw new IllegalArgumentException("Expected filename but got a null");
-    }
-    File fle = new File(filename);
-    Writer Writ = new FileWriter(fle);
-    this.writer = Writ;
+      System.out.println(filename);
+      if (filename.isEmpty() || filename == null) {
+        throw new IllegalArgumentException("Expected filename but got a null");
+      }
+
+      File fle = new File(filename);
+      if(fle.length() == 0){
+        System.out.println("File is empty creating a file with given name");
+//        fle.createNewFile();
+      }
+      Writer Writ = new FileWriter(fle);
+      this.writer = Writ;
 //    this.fileName = filename;
     }
 
@@ -34,18 +40,14 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
          this.writer.append(bill.getCustomer());
       }
       else {
-//      PrintWriter pw = new PrintWriter(this.writer);
-//      File tf = new File(this.fileName);
-//      FileWriter fw = new FileWriter(tf);
         for (PhoneCall call : custlog) {
-//          System.out.println(call.getBeginTimeString().split(" "));
           this.writer.append(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] + "," +
                   call.getBeginTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[0] + "," + call.getEndTimeString().split(" ")[1] + "\n");
         }
-//      pw.println(bill.getCustomer());
       }
       this.writer.flush();
 //      pw.close();
+      this.writer.close();
     }
     catch (Exception e) {
       throw new RuntimeException(e);

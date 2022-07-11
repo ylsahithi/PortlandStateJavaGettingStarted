@@ -27,7 +27,7 @@ public class TextParserTest {
   void invalidTextFileThrowsParserException() throws IOException {
     InputStream resource = getClass().getResourceAsStream("empty-phonebill.txt");
     assertThat(resource, notNullValue());
-
+//    TextParser parser = new TextParser(new InputStreamReader(resource));
     TextParser parser = new TextParser(new InputStreamReader(resource));
     assertThrows(ParserException.class, parser::parse);
   }

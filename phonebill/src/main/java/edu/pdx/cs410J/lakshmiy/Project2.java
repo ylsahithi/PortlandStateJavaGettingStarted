@@ -23,6 +23,8 @@ public class Project2 {
         public static final String text_File = "Written data to text file";
         public static final String text_File_error = "Missing text file and arguments ";
     public static final String File_not_found = "Exception caught file not found";
+    public static final String Empty_file = " file is empty, cannot parse empty file ";
+
 
 
         /**
@@ -69,22 +71,52 @@ public class Project2 {
 
 
         public static void parseAndDump(String [] args, int filePos, int argPos) throws IOException, ParserException{
-            try {
+
                 PhoneCall callData = new PhoneCall(args, argPos);
                 String file = args[filePos].split(" ")[1];
+
                 File textFile = new File(file);
-                FileReader fr = new FileReader(textFile);
-                TextParser parse = new TextParser(fr, args[argPos]);
-                PhoneBill pb = (PhoneBill) parse.parse();
-                pb.addPhoneCall(callData);
-                TextDumper dump = new TextDumper(file);
-                dump.dump(pb);
-                printErrorMessage(text_File);
+
+//                FileReader fr = new FileReader(textFile);
+                if (textFile.length() == 0) {
+                    textFile.createNewFile();
+                    PhoneBill pb = new PhoneBill(args[argPos]);
+                    System.out.println("dumper");
+                    pb.addPhoneCall(callData);
+
+                    TextDumper dump = new TextDumper(file);
+                    dump.dump(pb);
+                    printErrorMessage(text_File);
+                }
+                else {
+                    FileReader fr = new FileReader(textFile);
+//                InputStream resource = InputStream.class.getResourceAsStream(file);
+
+//                TextParser parser = new TextParser(new InputStreamReader(resource));
+                    TextParser parse = new TextParser(fr, args[argPos]);
+
+//                TextParser parse = new TextParser(new InputStreamReader(resource));
+                    System.out.println("dumper");
+                    PhoneBill pb = (PhoneBill) parse.parse();
+                    System.out.println("dumper");
+                    pb.addPhoneCall(callData);
+
+                    TextDumper dump = new TextDumper(file);
+                    dump.dump(pb);
+                    printErrorMessage(text_File);
+                }
+//                System.out.println("dumper");
+//                pb.addPhoneCall(callData);
+//
+//                TextDumper dump = new TextDumper(file);
+//                dump.dump(pb);
+//                printErrorMessage(text_File);
             }
-            catch (IOException | ParserException PO){
-                System.err.println(File_not_found);
-            }
-        }
+//            catch (IOException | ParserException PO){
+//                System.err.println(File_not_found);
+//                System.err.println("exception in main class ");
+//            }
+//        }
         /**
          * This function returns void and prints contents of readme file
          * It is called when user arguments has readme option

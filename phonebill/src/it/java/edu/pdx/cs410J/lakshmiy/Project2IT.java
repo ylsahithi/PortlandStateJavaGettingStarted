@@ -163,7 +163,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithNinewithTextfileOptArgs() {
         MainMethodResult result = invokeMain(Project2.class, "-textFile project2.txt", "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.File_not_found));
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     /**
@@ -190,7 +190,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithInvalidCustomer() {
         MainMethodResult result = invokeMain(Project2.class, "", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid customer name"));
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.Less_Num_args));
     }
 
     @Test
