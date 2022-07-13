@@ -11,14 +11,14 @@ public class AboutJava7LiteralsEnhancements {
     public void binaryLiterals() {
         //binary literals are marked with 0b prefix
         short binaryLiteral = 0b1111;
-        assertEquals(binaryLiteral,  15);
+        assertEquals(binaryLiteral, (short) 15);
     }
 
     @Koan
     public void binaryLiteralsWithUnderscores() {
         //literals can use underscores for improved readability
         short binaryLiteral = 0b1111_1111;
-        assertEquals(binaryLiteral,  255);
+        assertEquals(binaryLiteral,(short)  255);
     }
 
     @Koan

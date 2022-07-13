@@ -47,7 +47,7 @@ public class AboutExceptions {
         } finally {
             s += " and finally ran as well";
         }
-        assertEquals(s, "code ran normally  and finally ran as well" );
+        assertEquals(s, "code ran normally and finally ran as well" );
     }
 
     private void tryCatchFinallyWithVoidReturn(StringBuilder whatHappened) {
@@ -66,7 +66,7 @@ public class AboutExceptions {
     public void finallyIsAlwaysRan() {
         StringBuilder whatHappened = new StringBuilder();
         tryCatchFinallyWithVoidReturn(whatHappened);
-        assertEquals(whatHappened.toString(), "did something dangerous; the catch block executed , but so did the finally!" );
+        assertEquals(whatHappened.toString(), "did something dangerous; the catch block executed, but so did the finally!" );
     }
 
     @SuppressWarnings("finally")
@@ -102,7 +102,10 @@ public class AboutExceptions {
     @Koan
     public void catchUncheckedExceptions() {
         // What do you need to do to catch the unchecked exception?
-        doUncheckedStuff();
+        try{
+		doUncheckedStuff();
+	} catch(Exception e){
+	}
     }
 
     @SuppressWarnings("serial")

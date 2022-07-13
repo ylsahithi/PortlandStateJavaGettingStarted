@@ -40,7 +40,7 @@ public class AboutPrimitives {
     @Koan
     public void primitivesOfTypeLongHaveAnObjectTypeLong() {
         Object number = 1L;
-        assertEquals(getType(number),  long.class);
+        assertEquals(getType(number),  Long.class);
     }
 
     @Koan
@@ -62,7 +62,7 @@ public class AboutPrimitives {
     @Koan
     public void primitivesOfTypeShortHaveAnObjectTypeShort() {
         Object number = (short) 1;
-        assertEquals(getType(number), short.class );
+        assertEquals(getType(number), Short.class );
     }
 
     @Koan
@@ -84,7 +84,7 @@ public class AboutPrimitives {
     @Koan
     public void primitivesOfTypeByteHaveAnObjectTypeByte() {
         Object number = (byte) 1;
-        assertEquals(getType(number), byte.class );
+        assertEquals(getType(number), Byte.class );
     }
 
     @Koan
@@ -149,7 +149,7 @@ public class AboutPrimitives {
     @Koan
     public void primitivesOfTypeDoubleHaveAnObjectTypeDouble() {
         Object number = 1.0;
-        assertEquals(getType(number), double.class );
+        assertEquals(getType(number), Double.class );
     }
 
     @Koan
@@ -171,14 +171,14 @@ public class AboutPrimitives {
     @Koan
     public void primitivesOfTypeFloatCanBeDeclaredWithExponents() {
         assertEquals(getType(1e3f), float.class );
-        assertEquals(1.0e3f,1000.0  );
-        assertEquals(1E3f, 1000.0 );
+        assertEquals(1.0e3f,(float) 1000.0);
+        assertEquals(1E3f,(float) 1000.0);
     }
 
     @Koan
     public void primitivesOfTypeFloatHaveAnObjectTypeFloat() {
         Object number = 1f;
-        assertEquals(getType(number), float.class );
+        assertEquals(getType(number), Float.class );
     }
 
     @Koan
