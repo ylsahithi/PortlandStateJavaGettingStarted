@@ -46,8 +46,6 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       BufferedReader br = new BufferedReader(this.reader);
       while ((line = br.readLine()) != null) {
         linesList.add(line);
-        System.out.println("parser");
-        System.out.println(linesList);
       }
     }
     catch (Exception e) {

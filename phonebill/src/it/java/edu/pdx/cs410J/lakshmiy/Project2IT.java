@@ -53,13 +53,13 @@ public class Project2IT extends InvokeMainTestCase  {
 
     @Test
     void testMainWithTwoOptions() {
-        MainMethodResult result = invokeMain(Project2.class,  "-print", "-textFile project2.txt");
-        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.No_Print_args));
+        MainMethodResult result = invokeMain(Project2.class,  "-print", "-textFile", "project2.txt");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.Less_Num_args));
     }
 
     @Test
     void testMainWithAllOptions() {
-        MainMethodResult result = invokeMain(Project2.class, "-opt1", "-print", "-textFile project2.txt");
+        MainMethodResult result = invokeMain(Project2.class, "-opt1", "-print", "-textFile" ,"project2.txt");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.Less_Num_args));
     }
     /**
@@ -86,7 +86,7 @@ public class Project2IT extends InvokeMainTestCase  {
     @Test
     void testMainWithMoreArgs() {
         MainMethodResult result = invokeMain(Project2.class, "-print", "-more", "-opt", "sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34", "additional");
-        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.More_Num_args));
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project2.Invalid_args));
     }
 
     /**
@@ -94,7 +94,7 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void testMainWithExactArgs() {
-        MainMethodResult result = invokeMain(Project2.class, "-print", "-opt1","-textFile project2.txt", "sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        MainMethodResult result = invokeMain(Project2.class, "-print", "-opt1","-textFile", " project2.txt", "sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
     }
 
@@ -122,13 +122,13 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void testMainWithEightArgs() {
-        MainMethodResult result = invokeMain(Project2.class, "-print", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+        MainMethodResult result = invokeMain(Project2.class, "-print", "Sahithi", "971-978-9630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardOut(), containsString("Phone call from 971-978-9630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
     }
 
     @Test
     void testMainWithEightArgsWithTextfile() {
-        MainMethodResult result = invokeMain(Project2.class, "-textFile project2.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        MainMethodResult result = invokeMain(Project2.class, "-textFile"," project2.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
@@ -147,7 +147,7 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void testMainWithNinewithOptArgs() {
-        MainMethodResult result = invokeMain(Project2.class, "-print", "-readme", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        MainMethodResult result = invokeMain(Project2.class, "-print", "-readme", "Sahithi", "971-978-9630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.Readme_txt));
     }
 
@@ -162,7 +162,7 @@ public class Project2IT extends InvokeMainTestCase  {
 
     @Test
     void testMainWithNinewithTextfileOptArgs() {
-        MainMethodResult result = invokeMain(Project2.class, "-textFile project2.txt", "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+        MainMethodResult result = invokeMain(Project2.class, "-textFile"," project2.txt", "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
@@ -281,30 +281,30 @@ public class Project2IT extends InvokeMainTestCase  {
      */
     @Test
     void TestMainwithEmptyFilename(){
-        String dir = "src/test/resources/";
-        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir, "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("invalid entry as file name parameter"));
+        String dir = "/src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile ", dir, "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("File name passed is null "));
     }
 
     @Test
     void TestMainwithExistingFilename(){
-        String dir = "src/test/resources";
-        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"/empty-file1.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        String dir = "/src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile ","empty-file1.txt", "Lakshmi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     @Test
     void TestMainwithnewCustomerFilename(){
-        String dir = "src/test/resources";
-        MainMethodResult result = invokeMain(Project2.class, "-textFile "+dir+"/empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
+        String dir = "/src/test/resources";
+        MainMethodResult result = invokeMain(Project2.class, "-textFile ", "empty-file1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "5:34");
         assertThat(result.getTextWrittenToStandardError(), containsString(Project2.text_File));
     }
 
     @Test
     void testMainNullTextFilergs() {
-        String dir = "src/test/resources";
+        String dir = "/src/test/resources";
         MainMethodResult result = invokeMain(Project2.class, "-textFile " , "-opt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-        assertThat(result.getTextWrittenToStandardError(), containsString("File name passed in argument is Null"));
+        assertThat(result.getTextWrittenToStandardError(), containsString("File name passed is null"));
     }
 }
 

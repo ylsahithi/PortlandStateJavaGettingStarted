@@ -54,31 +54,25 @@ public class Project2 {
     /**
      * This function calls text parser and dumper thus read and writes data to file
      * @param args
-     * @param filePos
+     * @param filename
      * @param argPos
      * @throws IOException
      * @throws ParserException
      */
 
-    public static void parseAndDump(String [] args, int filePos, int argPos) throws IOException, ParserException{
+    public static void parseAndDump(String [] args, String filename, int argPos) throws IOException, ParserException{
         String file = "";
-        String [] fileParam = args[filePos].split(" ");
-        if(fileParam.length < 2){
-            System.err.println(" File name passed in argument is Null");
-            return;
-        }
-        file = fileParam[1];
+        file = args[1];
         PhoneCall callData = new PhoneCall(args, argPos);
         File textFile = new File(file);
         if (textFile.length() == 0) {
             textFile.createNewFile();
             PhoneBill pb = new PhoneBill(args[argPos]);
-            System.out.println("dumper");
             pb.addPhoneCall(callData);
-
-            TextDumper dump = new TextDumper(file);
+            TextDumper dump = new TextDumper(filename);
             dump.dump(pb);
             printErrorMessage(text_File);
+            System.out.println(text_File);
             printErrorMessage(File_not_found);
         }
         else {
@@ -88,7 +82,7 @@ public class Project2 {
                 PhoneBill pb = (PhoneBill) parse.parse();
                 pb.addPhoneCall(callData);
 
-                TextDumper dump = new TextDumper(file);
+                TextDumper dump = new TextDumper(filename);
                 dump.dump(pb);
                 printErrorMessage(text_File);
             }
@@ -141,11 +135,20 @@ public class Project2 {
     public static void validateInputArgsCount(String[] args) throws ParserException, IOException {
         ArrayList list = new ArrayList<>();
         String inputFileArg = "";
+        int index = 0;
         for (String arg :args) {
+            if(args.length > 2){
             if (arg.startsWith("-textFile")) {
-                inputFileArg = arg.toLowerCase();
+                if(args[index+1].contains(".txt")) {
+                    inputFileArg = args[index+1];
+                }
+                else {
+                    System.err.println("File name passed is null ");
+                }
             }
-            list.add(arg.toLowerCase());
+            }
+            list.add(arg.trim().toLowerCase());
+            index++;
         }
         ArrayList optionSet = new ArrayList<>();
         /**
@@ -189,7 +192,7 @@ public class Project2 {
         /**
          * If more than 10 args are passed
          */
-        else if (args.length > 10) {
+        else if (args.length > 11) {
             printErrorMessage(More_Num_args);
             return;
             /**
@@ -226,11 +229,12 @@ public class Project2 {
                     PhoneBill cust = new PhoneBill(args[1], callData);
                     System.out.println(callData.toString());
                 }
-                else if (args[0].equalsIgnoreCase(inputFileArg)) {
-                    parseAndDump(args, 0, 1);
-                    printErrorMessage(text_File);
+                else if (list.contains("-textfile")) {
+//                    parseAndDump(args, inputFileArg, 1);
+//                    printErrorMessage(text_File);
+                    printErrorMessage(text_File_error);
                 }
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme"))) {
                     printErrorMessage(Invalid_options);
                 }
 
@@ -247,11 +251,11 @@ public class Project2 {
                     PhoneBill cust = new PhoneBill(args[2], callData);
                     System.out.println(callData.toString());
                 }
-                if (list.contains(inputFileArg) && list.indexOf(inputFileArg) <= 2) {
+                if (list.contains("-textfile") && inputFileArg.length() > 1) {
                     int pos = list.indexOf(inputFileArg);
-                    parseAndDump(args, pos,2);
+                    parseAndDump(args, inputFileArg,2);
                 }
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme"))) {
                     printErrorMessage(Invalid_options);
                 }
             }
@@ -261,20 +265,36 @@ public class Project2 {
                 printErrorMessage(Invalid_args);
                 return;
             } else {
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
-                    System.out.println("args invalid");
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme"))) {
                     printErrorMessage(Invalid_options);
                 }
                 if (list.contains("-print") && list.indexOf("-print") <= 3) {
-                    System.out.println("print optin");
                     PhoneCall callData = new PhoneCall(args, 3);
                     PhoneBill cust = new PhoneBill(args[3], callData);
                     System.out.println(callData.toString());
                 }
-                if (list.contains(inputFileArg) && list.indexOf(inputFileArg) <= 3) {
-                    System.out.println(list.indexOf(inputFileArg));
+                if (list.contains("-textfile") && inputFileArg.length() > 1) {
                     int pos = list.indexOf(inputFileArg);
-                    parseAndDump(args, pos,3);
+                    parseAndDump(args, inputFileArg,3);
+                }
+            }
+        }
+        else if (args.length == 11) {
+            if (!validateEachArg(args)) {
+                printErrorMessage(Invalid_args);
+                return;
+            } else {
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme"))) {
+                    printErrorMessage(Invalid_options);
+                }
+                if (list.contains("-print") && list.indexOf("-print") <= 4) {
+                    PhoneCall callData = new PhoneCall(args, 4);
+                    PhoneBill cust = new PhoneBill(args[4], callData);
+                    System.out.println(callData.toString());
+                }
+                if (list.contains("-textfile") &&  inputFileArg.length() > 1) {
+                    int pos = list.indexOf(inputFileArg);
+                    parseAndDump(args, inputFileArg,4);
                 }
             }
         }
@@ -315,6 +335,12 @@ public class Project2 {
                 return true;
             }
         }
+            else  if (args.length == 11) {
+                if ((checkForvalidString(args[4])) && (isValidPhoneNumber(args[5])) && (isValidPhoneNumber(args[6])) && (checkForValidDate(args[7])) && (checkForValidTime(args[8]))
+                        && (checkForValidDate(args[9])) && (checkForValidTime(args[10]))) {
+                    return true;
+                }
+        }
         return false;
     }
 
@@ -343,7 +369,7 @@ public class Project2 {
      */
     @VisibleForTesting
     static boolean isValidPhoneNumber(String number) {
-	String phoneNumber = number.replace("-","");
+        String phoneNumber = number.replaceAll("-","");
         if (phoneNumber.length() < 10) {
             printErrorMessage("Invalid phone number, number of digits less than 10");
             return false;
@@ -369,7 +395,6 @@ public class Project2 {
         try {
             SimpleDateFormat validFormat = new SimpleDateFormat("MM/dd/yyyy");
             Date formattedDate = validFormat.parse(date);
-            System.out.println(formattedDate);
             if (date.equals(validFormat.format(formattedDate))) {
                 return true;
             } else {
