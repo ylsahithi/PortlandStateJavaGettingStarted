@@ -338,11 +338,12 @@ public class Project2 {
     /**
      * This method validates phone number value of the arguments
      * return type is boolean
-     * @param phoneNumber
+     * @param number
      *
      */
     @VisibleForTesting
-    static boolean isValidPhoneNumber(String phoneNumber) {
+    static boolean isValidPhoneNumber(String number) {
+	String phoneNumber = number.replace("-","");
         if (phoneNumber.length() < 10) {
             printErrorMessage("Invalid phone number, number of digits less than 10");
             return false;
