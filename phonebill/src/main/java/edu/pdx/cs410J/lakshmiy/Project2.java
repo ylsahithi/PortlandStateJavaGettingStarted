@@ -143,9 +143,9 @@ public class Project2 {
         String inputFileArg = "";
         for (String arg :args) {
             if (arg.startsWith("-textFile")) {
-                inputFileArg = arg;
+                inputFileArg = arg.toLowerCase();
             }
-            list.add(arg);
+            list.add(arg.toLowerCase());
         }
         ArrayList optionSet = new ArrayList<>();
         /**
