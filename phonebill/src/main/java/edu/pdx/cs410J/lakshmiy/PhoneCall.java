@@ -27,11 +27,11 @@ public class PhoneCall extends AbstractPhoneCall {
     this.calleeNumber = args[2];
     this.begin = args[3] + " " + args[4];
     this.end = args[5] + " " + args[6];
-    if(!(parseInputDate(this.begin)) || !(parseInputDate(this.end))){
-    System.err.println("Error in input date");
-    return;
-    }  
-}
+    if((getEndTimeDate().equals(getBeginTimeDate())) || (getEndTimeDate().before(getBeginTimeDate()))){
+      System.err.println("Input end and begin time are equal or end time is before begin time");
+      return;
+    }
+  }
 
   /**
    * Custom constructor with list of strings and position of customer name as input (if options present)
@@ -46,9 +46,9 @@ public class PhoneCall extends AbstractPhoneCall {
     this.calleeNumber = args[argPos+2];
     this.begin = args[argPos+ 3] + " " + args[argPos + 4];
     this.end = args[argPos + 5] + " " + args[argPos + 6];
-    if(!(parseInputDate(this.begin)) || !(parseInputDate(this.end))){
-    System.err.println("Error in input date");
-    return;
+    if((getEndTimeDate().equals(getBeginTimeDate())) || (getEndTimeDate().before(getBeginTimeDate()))){
+      System.err.println("Input end and begin time are equal or end time is before begin time");
+      return;
     }
   }
 
@@ -81,7 +81,8 @@ public class PhoneCall extends AbstractPhoneCall {
    */
   @Override
   public String getBeginTimeString(){
-      return this.begin;
+    return this.begin;
+
   }
 
 
@@ -90,18 +91,34 @@ public class PhoneCall extends AbstractPhoneCall {
    */
   @Override
   public String getEndTimeString() {
-      return this.end;
+    return this.end;
+
   }
 
-  public static boolean  parseInputDate(String date) {
+  public Date getBeginTimeDate(){
+    return parseInputDate(this.begin);
+
+  }
+
+  public Date getEndTimeDate(){
+    return parseInputDate(this.end);
+
+  }
+
+  public long calculateDuration(){
+    long diff = Math.abs(getBeginTimeDate().getTime() - getEndTimeDate().getTime());
+    return (diff / (60 * 1000) );
+  }
+
+  public static Date  parseInputDate(String date) {
     try {
       SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm");
       Date result = df.parse(date);
-      return true;
+      return result;
     }
     catch (ParseException PE) {
       System.err.println("Invalid input for date");
-      return false;
+      return null;
     }
   }
 }
