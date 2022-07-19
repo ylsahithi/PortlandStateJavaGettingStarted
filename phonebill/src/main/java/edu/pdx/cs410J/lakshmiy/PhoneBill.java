@@ -51,7 +51,7 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   @Override
   public Collection<PhoneCall> getPhoneCalls() {
     Collections.sort(phoneLog,comparecalls);
-    System.out.println(comparecalls);
+//    System.out.println(comparecalls);
     return this.phoneLog;
   }
 

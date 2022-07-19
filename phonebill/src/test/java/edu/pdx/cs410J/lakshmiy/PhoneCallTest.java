@@ -35,11 +35,11 @@ public class PhoneCallTest {
      * This unit test is expected to pass even begin time is null,
      * so null is passed to begin time to check if it returns true
      */
-    @Test
-    void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
-        PhoneCall call = new PhoneCall((new String[]{"sahithi", "8989898989", "7878787878", "","", "10/09/1993", "4:34", "-readme", "-print"}));
-        assertThat(call.getBeginTimeString(), is(nullValue()));
-    }
+//    @Test
+//    void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
+//        PhoneCall call = new PhoneCall((new String[]{"sahithi", "8989898989", "7878787878", "","", "10/09/1993", "4:34", "-readme", "-print"}));
+//        assertThat(call.getBeginTime(), is(nullValue()));
+//    }
 
     /**
      * This unit test will test get end time function by passing args

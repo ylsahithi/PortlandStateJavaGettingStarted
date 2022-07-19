@@ -20,3 +20,5 @@ Optional arguments-
 
 This application accepts the above user arguments in the given order, It will throw exceptions if the order is not followed. Optional arguments must precede user arguments.
 It tests for valid date and time passed, and sorts phone calls based on dates and stores information in text file
+getBegintime() and getendtime() are formatted java.util.date
+A PrettyPrinter class that implements the PhoneBillDumper interface and creates a nicely formatted textual presentation of the phone calls in a phone bill.

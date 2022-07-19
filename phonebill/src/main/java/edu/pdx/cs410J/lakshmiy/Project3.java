@@ -24,7 +24,9 @@ public class Project3 {
     public static final String text_File = "Written data to text file";
     public static final String text_File_error = "Missing text file and arguments ";
     public static final String File_not_found = "Exception caught file not found";
-
+    public static final String File_parse_exception = "Invalid text in input file cannot parse";
+    public static final String Pretty_print_File_error = "Cannot execute pretty print, error in file passed or file name";
+    public static final String  Pretty_success = "Written data to pretty print file ";
 
 
     /**
@@ -49,70 +51,87 @@ public class Project3 {
      *
      */
     public static void main(String[] args) throws IOException, ParserException {
-//        validateInputArgsCount(args);
-        PhoneCall callData = new PhoneCall(args, 2);
-        PhoneBill cust = new PhoneBill(args[2], callData);
-        System.out.println(callData.getBeginTimeDate().toString());
-        System.err.println(callData.calculateDuration());
-        parseAndDump(args,0,2);
-        String [] file = args[0].split(" ");;
-        FileReader fr = new FileReader(file[1]);
-        TextParser parse = new TextParser(fr, args[2]);
-        PhoneBill pb = (PhoneBill) parse.parse();
-        pb.addPhoneCall(callData);
-
-//        TextDumper dump = new TextDumper(file);
-//        dump.dump(pb);
-        String [] fileParam = args[1].split(" ");
-        PrettyPrint pp = new PrettyPrint(fileParam[1]);
-        pp.dump(pb);
-
+        validateInputArgsCount(args);
     }
 
     /**
-     * This function calls text parser and dumper thus read and writes data to file
+     * This function calls text parser, dumper and pretty print dumper thus read and writes data to file
      * @param args
-     * @param filePos
+     * @param filename
      * @param argPos
      * @throws IOException
      * @throws ParserException
      */
 
-    public static void parseAndDump(String [] args, int filePos, int argPos) throws IOException, ParserException{
-        String file = "";
-        String [] fileParam = args[filePos].split(" ");
-        if(fileParam.length < 2){
-            System.err.println(" File name passed in argument is Null");
+    public static void parseAndDump(String [] args, String filename, int argPos, String prettyFile) throws IOException, ParserException{
+        if(filename.length() == 0 && prettyFile.length() == 0 ) {
+            System.err.println("File names passed in argument are Null");
             return;
         }
-        file = fileParam[1];
         PhoneCall callData = new PhoneCall(args, argPos);
-        File textFile = new File(file);
-        if (textFile.length() == 0) {
-            textFile.createNewFile();
-            PhoneBill pb = new PhoneBill(args[argPos]);
-            System.out.println("dumper");
-            pb.addPhoneCall(callData);
-
-            TextDumper dump = new TextDumper(file);
-            dump.dump(pb);
-            printErrorMessage(text_File);
-            printErrorMessage(File_not_found);
+        if(filename.length() == 0 && prettyFile.length() != 0){
+            PhoneBill prettybill = new PhoneBill(args[argPos]);
+            prettybill.addPhoneCall(callData);
+            if(prettyFile.equals("-")){
+                PrettyPrint pp = new PrettyPrint();
+                pp.PrettyPrintToConsole(prettybill);
+                System.err.println("Written pretty print to Console");
+            }
+            else{ PrettyPrint pp = new PrettyPrint(prettyFile);
+                pp.dump(prettybill);
+                System.err.println(Pretty_success);
+            }
         }
-        else {
-            try {
+        if(filename.length() != 0) {
+            File textFile = new File(filename);
+            if (textFile.length() == 0) {
+                textFile.createNewFile();
+                PhoneBill pb = new PhoneBill(args[argPos]);
+                pb.addPhoneCall(callData);
+                TextDumper dump = new TextDumper(filename);
+                dump.dump(pb);
+                if (prettyFile.contains(".txt")) {
+                    PrettyPrint pp = new PrettyPrint(prettyFile);
+                    pp.dump(pb);
+                    System.err.println(Pretty_success);
+                }
+                if (prettyFile.equals("-")) {
+                    PrettyPrint pc = new PrettyPrint();
+                    pc.PrettyPrintToConsole(pb);
+                    System.err.println("Written pretty print to Console");
+                }
+                System.err.println(text_File);
+                System.err.println("File not present creating new file");
+            }
+            else {
+                try{
                 FileReader fr = new FileReader(textFile);
                 TextParser parse = new TextParser(fr, args[argPos]);
                 PhoneBill pb = (PhoneBill) parse.parse();
+                if (pb.getCustomer().length() == 0) {
+                    printErrorMessage(File_parse_exception);
+                    return;
+                }
                 pb.addPhoneCall(callData);
-                TextDumper dump = new TextDumper(file);
+                TextDumper dump = new TextDumper(filename);
                 dump.dump(pb);
-                printErrorMessage(text_File);
-            }
-            catch (FileNotFoundException fe){
-                System.err.println("invalid entry as file name parameter");
+                if (prettyFile.contains("txt")) {
+                    PrettyPrint pp = new PrettyPrint(prettyFile);
+                    pp.dump(pb);
+                    System.err.println(Pretty_success);
+                }
+                if (prettyFile.equals("-")) {
+                    PrettyPrint pc = new PrettyPrint();
+                    pc.PrettyPrintToConsole(pb);
+                    System.err.println("Written pretty print to Console");
+                }
+                    System.err.println(text_File);
+            } catch (FileNotFoundException fe) {
+                    System.err.println("invalid entry as file name parameter");
+                }
             }
         }
+        return;
     }
     /**
      * This function returns void and prints contents of readme file
@@ -156,19 +175,30 @@ public class Project3 {
      *
      */
     public static void validateInputArgsCount(String[] args) throws ParserException, IOException {
+        ValidateArgs va = new ValidateArgs();
         ArrayList list = new ArrayList<>();
         String inputFileArg = "";
         String prettyFileArg = "";
+        int index = 0;
+        /**
+        * picking up text file and pretty file from user arguments
+         */
         for (String arg :args) {
-            if (arg.startsWith("-textFile")) {
-                inputFileArg = arg.toLowerCase();
+            if(args.length > 2){
+                if (arg.startsWith("-textFile")) {
+                        if(index+1 < args.length){
+                            if(args[index+1].contains(".txt")) {inputFileArg = args[index + 1];}
+                        }
+                }
+                if (arg.startsWith("-pretty")) {
+                    if(index+1 < args.length){
+                        prettyFileArg = args[index + 1];
+                    }
+                }
             }
-            if (arg.startsWith("-pretty")) {
-                prettyFileArg = arg.toLowerCase();
-            }
-            list.add(arg.toLowerCase());
+            list.add(arg.trim().toLowerCase());
+            index++;
         }
-        ArrayList optionSet = new ArrayList<>();
         /**
          * If there are no arguments passed to main function
          */
@@ -180,55 +210,44 @@ public class Project3 {
          * If readme is one of the arguments then it prints readme and exit
          * prints read me in system error
          */
-        if(list.contains("-readme") && list.indexOf("-readme") <= 3){
+        if(list.contains("-readme") && list.indexOf("-readme") <= 5){
             printREADMEOption();
             return;
         }
         /**
-         * If there are only one argument passed if the argument is type
-         * of optional arguments it returns error message
+         * If there are only less number of argument passed
          */
-
-        else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("-print")) { printErrorMessage(No_Print_args);  return;}
-            else if (args[0].equalsIgnoreCase(inputFileArg)) { printErrorMessage(text_File_error);  return;}
+        if (args.length >= 1 && args.length <= 5 ) {
+            if (list.contains("-print")) { printErrorMessage(No_Print_args);  return;}
+            else if (list.contains("-textfile")) { printErrorMessage(text_File_error);  return;}
+            else if (list.contains("-pretty")) { printErrorMessage(Pretty_print_File_error);  return;}
             else {
                 printErrorMessage(Invalid_args);
                 return;
             }
         }
-        else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("-print")||args[1].equalsIgnoreCase("-print")) { printErrorMessage(No_Print_args);  return;}
-            else if (args[0].equalsIgnoreCase(inputFileArg)||args[1].equalsIgnoreCase(inputFileArg)) { printErrorMessage(text_File_error);  return;}
-            else {
-                printErrorMessage(Invalid_args);
-                return;
-            }
-        }
-
-
         /**
-         * If more than 10 args are passed
+         * If more than 13 args are passed
          */
-        else if (args.length > 10) {
+        else if (args.length >= 13) {
             printErrorMessage(More_Num_args);
             return;
             /**
-             * If more than 2 and less than 7 args are passed
+             * If more than 4 and less than 7 args are passed
              */
-        } else if ((args.length < 7) && (args.length > 2)) {
+        } else if ((args.length < 7) && (args.length >= 4)) {
             printErrorMessage(Less_Num_args);
             return;
             /**
              * If valid arguments are passed in expected order.
              */
         } else if (args.length == 7) {
-            if ((list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
+            if ((list.contains("-print") || list.contains("-textfile") || list.contains("-readme") || list.contains("-pretty"))) {
                 printErrorMessage(Less_Num_args);
                 return;
             }
             else {
-                if (!validateEachArg(args)) {
+                if (!va.validateEachArg(args,0)) {
                     printErrorMessage(Invalid_args);
                     return;
                 } else {
@@ -238,7 +257,7 @@ public class Project3 {
                 }
             }
         } else if (args.length == 8) {
-            if (!validateEachArg(args)) {
+            if (!va.validateEachArg(args,1)) {
                 printErrorMessage(Invalid_args);
                 return;
             } else {
@@ -247,179 +266,49 @@ public class Project3 {
                     PhoneBill cust = new PhoneBill(args[1], callData);
                     System.out.println(callData.toString());
                 }
-                else if (args[0].equalsIgnoreCase(inputFileArg)) {
-                    parseAndDump(args, 0, 1);
+                else if (list.contains("-textfile")) {
                     printErrorMessage(text_File);
                 }
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
+                else if (list.contains("-pretty")) {
+                    printErrorMessage(Pretty_print_File_error);
+                }
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme") || list.contains("-pretty"))) {
                     printErrorMessage(Invalid_options);
                 }
 
             }
         }
-        else if (args.length == 9) {
-            if (!validateEachArg(args)) {
+        else if (args.length >= 9  && args.length <= 12) {
+            int argpos = 0;
+            if(args.length == 9){
+                argpos = 2;
+            } else if (args.length == 10) {
+                argpos = 3;
+            }
+            else if (args.length == 11) {
+                argpos = 4;
+            }
+            else if (args.length == 12) {
+                argpos = 5;
+            }
+            if (!va.validateEachArg(args,argpos)) {
                 printErrorMessage(Invalid_args);
                 return;
             }
             else {
-                if (list.contains("-print") && list.indexOf("-print") <= 2) {
-                    PhoneCall callData = new PhoneCall(args, 2);
-                    PhoneBill cust = new PhoneBill(args[2], callData);
+                if (list.contains("-print") && list.indexOf("-print") <= argpos) {
+                    PhoneCall callData = new PhoneCall(args, argpos);
+                    PhoneBill cust = new PhoneBill(args[argpos], callData);
                     System.out.println(callData.toString());
                 }
-                if (list.contains(inputFileArg) && list.indexOf(inputFileArg) <= 2) {
-                    int pos = list.indexOf(inputFileArg);
-                    parseAndDump(args, pos,2);
+                if ((list.contains("-textfile") && list.indexOf("-textfile") <= argpos) || (list.contains("-pretty") && list.indexOf("-pretty") <= argpos) ) {
+                    parseAndDump(args, inputFileArg,argpos,prettyFileArg);
                 }
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
+                if (!(list.contains("-print") || list.contains("-textfile") || list.contains("-readme")  || list.contains("-pretty"))) {
                     printErrorMessage(Invalid_options);
-                }
-            }
-        }
-        else if (args.length == 10) {
-            if (!validateEachArg(args)) {
-                printErrorMessage(Invalid_args);
-                return;
-            } else {
-                if (!(list.contains("-print") || list.contains(inputFileArg) || list.contains("-readme"))) {
-                    System.out.println("args invalid");
-                    printErrorMessage(Invalid_options);
-                }
-                if (list.contains("-print") && list.indexOf("-print") <= 3) {
-                    System.out.println("print optin");
-                    PhoneCall callData = new PhoneCall(args, 3);
-                    PhoneBill cust = new PhoneBill(args[3], callData);
-                    System.out.println(callData.toString());
-                }
-                if (list.contains(inputFileArg) && list.indexOf(inputFileArg) <= 3) {
-                    System.out.println(list.indexOf(inputFileArg));
-                    int pos = list.indexOf(inputFileArg);
-                    parseAndDump(args, pos,3);
                 }
             }
         }
         return;
     }
-
-
-
-    /**
-     * This method validates each argument individually and returns true if arguments are valid
-     * it checks for valid phone numbers date and time in input args return type is boolean
-     * @param args
-     *
-     */
-    @VisibleForTesting
-    public static boolean validateEachArg(String[] args) {
-        if (args.length == 7){
-            if ((checkForvalidString(args[0])) && (isValidPhoneNumber(args[1])) && (isValidPhoneNumber(args[2])) && (checkForValidDate(args[3])) && (checkForValidTime(args[4]))
-                    && (checkForValidDate(args[5])) && (checkForValidTime(args[6]))) {
-                return true;
-            }
-        }
-        else  if (args.length == 8) {
-            if ((checkForvalidString(args[1])) && (isValidPhoneNumber(args[2])) && (isValidPhoneNumber(args[3])) && (checkForValidDate(args[4])) && (checkForValidTime(args[5]))
-                    && (checkForValidDate(args[6])) && (checkForValidTime(args[7]))) {
-                return true;
-            }
-        }
-        else  if (args.length == 9) {
-            if ((checkForvalidString(args[2])) && (isValidPhoneNumber(args[3])) && (isValidPhoneNumber(args[4])) && (checkForValidDate(args[5])) && (checkForValidTime(args[6]))
-                    && (checkForValidDate(args[7])) && (checkForValidTime(args[8]))) {
-                return true;
-            }
-        }
-        else  if (args.length == 10) {
-            if ((checkForvalidString(args[3])) && (isValidPhoneNumber(args[4])) && (isValidPhoneNumber(args[5])) && (checkForValidDate(args[6])) && (checkForValidTime(args[7]))
-                    && (checkForValidDate(args[8])) && (checkForValidTime(args[9]))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * This method validates each customer name argument, it checks for valid string as input
-     * return type is boolean
-     * @param name
-     *
-     */
-    @VisibleForTesting
-    public static boolean checkForvalidString(String name) {
-        if (name.trim().isEmpty() || name.length() == 1 || (name.replaceAll("[^a-zA-Z]", "").length() == 0)) {
-            printErrorMessage("Invalid customer name");
-            return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * This method validates phone number value of the arguments
-     * return type is boolean
-     * @param phoneNumber
-     *
-     */
-    @VisibleForTesting
-    static boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() < 10) {
-            printErrorMessage("Invalid phone number, number of digits less than 10");
-            return false;
-        } else if (phoneNumber.startsWith("0")) {
-            printErrorMessage(" Invalid phone number, a phone number cannot start with zero");
-            return false;
-        } else if (!phoneNumber.matches("[0-9]+")) {
-            printErrorMessage("Invalid input for phone number, it cannot contain letters");
-            return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * This method validates DAte value in args checks fi date format is as expected
-     * return type is boolean
-     * @param date
-     *
-     */
-    @VisibleForTesting
-    public static boolean checkForValidDate(String date) {
-        try {
-            SimpleDateFormat validFormat = new SimpleDateFormat("MM/dd/yyyy");
-            Date formattedDate = validFormat.parse(date);
-            System.out.println(formattedDate);
-            if (date.equals(validFormat.format(formattedDate))) {
-                return true;
-            } else {
-                printErrorMessage("Invalid input for date");
-                return false;
-            }
-        } catch (ParseException PE) {
-            printErrorMessage("Invalid input for date");
-            return false;
-        }
-    }
-
-    /**
-     * This method validates Time value in args checks if it is valid
-     * return type is  boolean
-     * @param time
-     *
-     */
-    @VisibleForTesting
-    public static boolean checkForValidTime(String time) {
-        try {
-            String[] hourMin = time.split(":");
-            if ((Integer.parseInt(hourMin[0]) < 24) && (Integer.parseInt(hourMin[1]) < 60)) {
-                return true;
-            }
-            printErrorMessage("Invalid input for time");
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
 }

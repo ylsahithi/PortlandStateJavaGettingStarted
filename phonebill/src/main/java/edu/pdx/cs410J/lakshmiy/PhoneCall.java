@@ -95,21 +95,36 @@ public class PhoneCall extends AbstractPhoneCall {
 
   }
 
+  /**
+   * This is get function to return bbegin time parsed in date format
+   */
   public Date getBeginTimeDate(){
     return parseInputDate(this.begin);
 
   }
 
+  /**
+   * This is get function to return begin time parsed in date format
+   */
   public Date getEndTimeDate(){
     return parseInputDate(this.end);
 
   }
 
+  /**
+   * Calculates duration of phone call
+   * @return
+   */
   public long calculateDuration(){
     long diff = Math.abs(getBeginTimeDate().getTime() - getEndTimeDate().getTime());
     return (diff / (60 * 1000) );
   }
 
+  /**
+   * Parse input date in string format to date
+   * @param date
+   * @return
+   */
   public static Date  parseInputDate(String date) {
     try {
       SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm");

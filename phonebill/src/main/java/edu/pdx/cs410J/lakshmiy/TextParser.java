@@ -42,6 +42,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
   public PhoneBill parse() throws ParserException {
     String line = "";
     ArrayList<String> linesList = new ArrayList<>();
+    ValidateArgs va = new ValidateArgs();
     try {
       BufferedReader br = new BufferedReader(this.reader);
       while ((line = br.readLine()) != null) {
@@ -58,7 +59,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
     if(this.customer != null){
       if(!(this.customer.equalsIgnoreCase(linesList.get(0).split(",")[0]))){
         System.err.println("customer name is different from the entry in file");
-        return new PhoneBill(this.customer);
+        return new PhoneBill("");
       }
     }
     this.customer = linesList.get(0).split(",")[0];
@@ -66,12 +67,14 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
     for (String calls : linesList) {
       String[] phonebook = calls.split(",");
       if (phonebook.length >= 7) {
+      boolean checkFlag = va.validateEachArg(phonebook,0);
+      if (checkFlag == true) {
         bill.addPhoneCall(new PhoneCall(phonebook, 0));
+      }
       }
       else {
         return bill;
       }
-
     }
     return bill;
   }
