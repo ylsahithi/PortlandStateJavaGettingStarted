@@ -192,7 +192,7 @@ public class Project3 {
                 }
                 if (arg.startsWith("-pretty")) {
                     if(index+1 < args.length){
-                        if(args[index+1].contains(".txt") || (args[index+1].contains("-"))){
+                        if(args[index+1].contains(".txt") || (args[index+1].equals("-"))){
                         prettyFileArg = args[index + 1];}
                     }
                 }
@@ -268,7 +268,7 @@ public class Project3 {
                     System.out.println(callData.toString());
                 }
                 else if (list.contains("-textfile")) {
-                    printErrorMessage(text_File);
+                    printErrorMessage(text_File_error);
                 }
                 else if (list.contains("-pretty")) {
                     printErrorMessage(Pretty_print_File_error);
