@@ -2,8 +2,7 @@ package edu.pdx.cs410J.lakshmiy;
 
 import edu.pdx.cs410J.AbstractPhoneCall;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 
 import java.util.Date;
 
@@ -129,6 +128,9 @@ public class PhoneCall extends AbstractPhoneCall {
     try {
       SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm");
       Date result = df.parse(date);
+      DateFormat frmt = DateFormat.getDateTimeInstance();
+//      DateFormat frmttime = DateFormat.getTimeInstance(DateFormat.SHORT);
+      System.out.println("short " + frmt.format(result));
       return result;
     }
     catch (ParseException PE) {

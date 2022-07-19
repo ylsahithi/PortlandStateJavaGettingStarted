@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
@@ -51,7 +52,7 @@ public class PrettyPrint implements PhoneBillDumper<PhoneBill> {
                 System.out.println(" call " + lineCount + ": ");
                 System.out.println(" Caller number  : " + call.getCaller() );
                 System.out.println(" Callee number  : " + call.getCallee() );
-                SimpleDateFormat prettydate = new SimpleDateFormat("dd-MMM-yy hh:mm a");
+                DateFormat prettydate = DateFormat.getDateTimeInstance();
                 System.out.println(" Begin call time : " + prettydate.format(call.getBeginTimeDate()));
                 System.out.println(" End call time : " + prettydate.format(call.getEndTimeDate()));
                 System.out.println(" Call Duration : " + call.calculateDuration() + " min");

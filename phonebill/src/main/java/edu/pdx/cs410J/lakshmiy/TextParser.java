@@ -71,6 +71,9 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       if (checkFlag == true) {
         bill.addPhoneCall(new PhoneCall(phonebook, 0));
       }
+      else {
+        return new PhoneBill("");
+      }
       }
       else {
         return bill;
