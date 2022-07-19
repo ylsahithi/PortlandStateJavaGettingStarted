@@ -192,7 +192,8 @@ public class Project3 {
                 }
                 if (arg.startsWith("-pretty")) {
                     if(index+1 < args.length){
-                        prettyFileArg = args[index + 1];
+                        if(args[index+1].contains(".txt") || (args[index+1].contains("-"))){
+                        prettyFileArg = args[index + 1];}
                     }
                 }
             }

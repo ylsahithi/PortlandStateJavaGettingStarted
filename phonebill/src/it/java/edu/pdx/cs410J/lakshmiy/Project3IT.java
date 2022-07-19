@@ -218,6 +218,32 @@ public class Project3IT extends InvokeMainTestCase  {
         MainMethodResult result = invokeMain(Project3.class, "-opt", "-textFile","Project3.txt", "-pretty", "-", "Sahithi", "9719789630", "3128103280", "12/12/2020", "1:34", "12/12/2020", "9:34");
         assertThat(result.getTextWrittenToStandardError(), containsString("Written pretty print to Console"));
     }
+
+    @Test
+    void testMainWithTwelveOptArgs4() {
+        MainMethodResult result = invokeMain(Project3.class,  "-textFile", "-pretty",  "Sahithi", "9719789630", "3128103280", "12/12/2020", "1:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("File names passed in argument are Null"));
+    }
+
+
+    @Test
+    void testMainWithTwelveOptArgs6() {
+        MainMethodResult result = invokeMain(Project3.class,  "-textFile","Project3.txt", "-pretty",  "Sahithi", "9719789630", "3128103280", "12/12/2020", "1:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project3.text_File));
+    }
+
+
+    @Test
+    void testMainWithTwelveOptArgs7() {
+        MainMethodResult result = invokeMain(Project3.class,  "-textFile", "-pretty", "pretty1.txt", "Sahithi", "9719789630", "3128103280", "12/12/2020", "1:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString(Project3.Pretty_success));
+    }
+
+    @Test
+    void testMainWithTwelveOptArgs9() {
+        MainMethodResult result = invokeMain(Project3.class,  "-textFile", "-pretty", "-", "Sahithi", "9719789630", "3128103280", "12/12/2020", "1:34", "12/12/2020", "9:34");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Written pretty print to Console"));
+    }
     /**
      * Tests that invoking the main method with invalid empty customer name issues an error
      */
