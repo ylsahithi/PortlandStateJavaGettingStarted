@@ -130,7 +130,7 @@ public class PhoneCall extends AbstractPhoneCall {
       Date result = df.parse(date);
       DateFormat frmt = DateFormat.getDateTimeInstance();
 //      DateFormat frmttime = DateFormat.getTimeInstance(DateFormat.SHORT);
-      System.out.println("short " + frmt.format(result));
+//      System.out.println("short " + frmt.format(result));
       return result;
     }
     catch (ParseException PE) {
