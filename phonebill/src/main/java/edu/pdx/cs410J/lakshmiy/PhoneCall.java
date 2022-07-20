@@ -24,8 +24,8 @@ public class PhoneCall extends AbstractPhoneCall {
   public PhoneCall(String[] args) {
     this.callerNumber = args[1];
     this.calleeNumber = args[2];
-    this.begin = args[3] + " " + args[4];
-    this.end = args[5] + " " + args[6];
+    this.begin = args[3] + " " + args[4] + " " + args[5];
+    this.end = args[6] + " " + args[7] + " " + args[8];
     if((getEndTimeDate().equals(getBeginTimeDate())) || (getEndTimeDate().before(getBeginTimeDate()))){
       System.err.println("Input end and begin time are equal or end time is before begin time");
       return;
@@ -43,8 +43,8 @@ public class PhoneCall extends AbstractPhoneCall {
   public PhoneCall(String[] args, int argPos) {
     this.callerNumber = args[argPos+1];
     this.calleeNumber = args[argPos+2];
-    this.begin = args[argPos+ 3] + " " + args[argPos + 4];
-    this.end = args[argPos + 5] + " " + args[argPos + 6];
+    this.begin = args[argPos+ 3] + " " + args[argPos + 4] + " " + args[argPos + 5];
+    this.end = args[argPos + 6] + " " + args[argPos + 7] + " " + args[argPos + 8];
     if((getEndTimeDate().equals(getBeginTimeDate())) || (getEndTimeDate().before(getBeginTimeDate()))){
       System.err.println("Input end and begin time are equal or end time is before begin time");
       return;
@@ -80,6 +80,7 @@ public class PhoneCall extends AbstractPhoneCall {
    */
   @Override
   public String getBeginTimeString(){
+//    System.out.println(this.begin);
     return this.begin;
 
   }
@@ -126,7 +127,7 @@ public class PhoneCall extends AbstractPhoneCall {
    */
   public static Date  parseInputDate(String date) {
     try {
-      SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+      SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
       Date result = df.parse(date);
       DateFormat frmt = DateFormat.getDateTimeInstance();
 //      DateFormat frmttime = DateFormat.getTimeInstance(DateFormat.SHORT);

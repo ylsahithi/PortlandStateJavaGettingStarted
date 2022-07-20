@@ -230,19 +230,19 @@ public class Project3 {
         /**
          * If more than 13 args are passed
          */
-        else if (args.length >= 13) {
+        else if (args.length >= 15) {
             printErrorMessage(More_Num_args);
             return;
             /**
              * If more than 4 and less than 7 args are passed
              */
-        } else if ((args.length < 7) && (args.length >= 4)) {
+        } else if ((args.length < 9) && (args.length >= 6)) {
             printErrorMessage(Less_Num_args);
             return;
             /**
              * If valid arguments are passed in expected order.
              */
-        } else if (args.length == 7) {
+        } else if (args.length == 9) {
             if ((list.contains("-print") || list.contains("-textfile") || list.contains("-readme") || list.contains("-pretty"))) {
                 printErrorMessage(Less_Num_args);
                 return;
@@ -257,7 +257,7 @@ public class Project3 {
                     System.out.println(callData.toString());
                 }
             }
-        } else if (args.length == 8) {
+        } else if (args.length == 10) {
             if (!va.validateEachArg(args,1)) {
                 printErrorMessage(Invalid_args);
                 return;
@@ -279,17 +279,17 @@ public class Project3 {
 
             }
         }
-        else if (args.length >= 9  && args.length <= 12) {
+        else if (args.length >= 11  && args.length <= 14) {
             int argpos = 0;
-            if(args.length == 9){
+            if(args.length == 11){
                 argpos = 2;
-            } else if (args.length == 10) {
+            } else if (args.length == 12) {
                 argpos = 3;
             }
-            else if (args.length == 11) {
+            else if (args.length == 13) {
                 argpos = 4;
             }
-            else if (args.length == 12) {
+            else if (args.length == 14) {
                 argpos = 5;
             }
             if (!va.validateEachArg(args,argpos)) {

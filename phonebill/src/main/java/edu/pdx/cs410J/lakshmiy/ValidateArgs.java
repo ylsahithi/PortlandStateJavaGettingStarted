@@ -16,8 +16,8 @@ public class ValidateArgs {
      */
     @VisibleForTesting
     public boolean validateEachArg(String[] args, int pos) {
-            if ((checkForvalidString(args[pos])) && (isValidPhoneNumber(args[pos+1])) && (isValidPhoneNumber(args[pos+2])) && (checkForValidDate(args[pos+3])) && (checkForValidTime(args[pos+4]))
-                    && (checkForValidDate(args[pos+5])) && (checkForValidTime(args[pos+6]))) {
+            if ((checkForvalidString(args[pos])) && (isValidPhoneNumber(args[pos+1])) && (isValidPhoneNumber(args[pos+2])) && (checkForValidDate(args[pos+3])) && (checkForValidTime(args[pos+4])) && (checkforvalidFormat(args[pos+5]))
+                    && (checkForValidDate(args[pos+6])) && (checkForValidTime(args[pos+7])) && (checkforvalidFormat(args[pos+8]))) {
                 return true;
             }
         return false;
@@ -102,5 +102,14 @@ public class ValidateArgs {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @VisibleForTesting
+    public static boolean checkforvalidFormat(String time) {
+       if(time.equalsIgnoreCase("AM") || time.equalsIgnoreCase("PM")){
+//           System.out.println("time valid ");
+           return true;
+       }
+       return false;
     }
 }

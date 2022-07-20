@@ -18,8 +18,8 @@ public class PhoneCallTest {
      */
     @Test
     void getBeginTimeStringNeedsToBeImplemented() {
-        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15", "10/09/1993", "4:34", "-readme", "-print"});
-        assertThat(call.getBeginTimeString(), equalTo("09/10/1993 12:15"));
+        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15","am", "10/09/1993", "4:34","am", "-readme", "-print"});
+        assertThat(call.getBeginTimeString(), equalTo("09/10/1993 12:15 am"));
     }
 
     /**
@@ -27,7 +27,7 @@ public class PhoneCallTest {
      */
     @Test
     void initiallyAllPhoneCallsHaveTheSameCallee() {
-        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15", "10/09/1993", "4:34", "-readme", "-print"});
+        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15","am", "10/09/1993", "4:34","am", "-readme", "-print"});
         assertThat(call.getCallee(), containsString("7878787878"));
     }
 
@@ -47,8 +47,8 @@ public class PhoneCallTest {
      */
     @Test
     void getEndTimeStringTest() {
-        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15", "10/09/1993", "4:34", "-readme", "-print"});
-        assertThat(call.getEndTimeString(), equalTo("10/09/1993 4:34"));
+        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15","am", "10/09/1993", "4:34","am", "-readme", "-print"});
+        assertThat(call.getEndTimeString(), equalTo("10/09/1993 4:34 am"));
     }
 
     /**
@@ -57,7 +57,7 @@ public class PhoneCallTest {
      */
     @Test
     void getCallerStringTest() {
-        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15", "10/09/1993", "4:34", "-readme", "-print"});
+        PhoneCall call = new PhoneCall(new String[]{"sahithi", "8989898989", "7878787878", "09/10/1993", "12:15","am", "10/09/1993", "4:34","am", "-readme", "-print"});
         assertThat(call.getCaller(), equalTo("8989898989"));
     }
 

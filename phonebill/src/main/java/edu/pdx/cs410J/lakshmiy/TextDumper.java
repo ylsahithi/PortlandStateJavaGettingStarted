@@ -51,7 +51,7 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
             else {
                 for (PhoneCall call : custlog) {
                     this.writer.append(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] + "," +
-                            call.getBeginTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[0] + "," + call.getEndTimeString().split(" ")[1] + "\n");
+                            call.getBeginTimeString().split(" ")[1] + ","  + call.getBeginTimeString().split(" ")[2] + ","+ call.getEndTimeString().split(" ")[0] + "," + call.getEndTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[2] + "\n");
                 }
             }
             this.writer.flush();
