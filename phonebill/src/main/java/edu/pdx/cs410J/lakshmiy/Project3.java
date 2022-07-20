@@ -142,7 +142,7 @@ public class Project3 {
     public static void printREADMEOption(){
         BufferedReader br = null;
         try {
-            InputStream ReadmeFile = Project1.class.getResourceAsStream("README.txt");
+            InputStream ReadmeFile = Project3.class.getResourceAsStream("README.txt");
             InputStreamReader temp = new InputStreamReader(ReadmeFile);
             br = new BufferedReader(temp);
             String lines;

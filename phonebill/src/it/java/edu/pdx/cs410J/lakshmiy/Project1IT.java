@@ -83,8 +83,8 @@
 //     */
 //    @Test
 //    void testMainWithExactArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-print", "-opt1", "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
-//        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
+//        MainMethodResult result = invokeMain(Project1.class,  "-print", "-opt1", "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "am", "12/12/2020", "9:34", "am");
+//        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 am to 12/12/2020 9:34 am"));
 //    }
 //
 //    /**
@@ -92,7 +92,7 @@
 //     */
 //    @Test
 //    void testMainWithExactArgsNooptions(){
-//        MainMethodResult result = invokeMain(Project1.class,  "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
 //    }
 //
@@ -102,7 +102,7 @@
 //     */
 //    @Test
 //    void testMainWithInvalidArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-print" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "-print" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Less_Num_args));
 //    }
 //
@@ -111,7 +111,7 @@
 //     */
 //    @Test
 //    void testMainWithEightArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-print", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "-print", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Phone call from 9719789630 to 3128103280 from 12/12/2020 11:34 to 12/12/2020 9:34"));
 //    }
 //
@@ -121,7 +121,7 @@
 //     */
 //    @Test
 //    void testMainWithEightInvalidOptArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Invalid_options));
 //    }
 //
@@ -131,7 +131,7 @@
 //     */
 //    @Test
 //    void testMainWithNinewithOptArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-print", "-readme", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "-print", "-readme", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "am","12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Readme_txt));
 //    }
 //
@@ -140,7 +140,7 @@
 //     */
 //    @Test
 //    void testMainWithNinewithInvalidOptArgs(){
-//        MainMethodResult result = invokeMain(Project1.class,  "-opt1", "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class,  "-opt1", "-opt", "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Invalid_options));
 //    }
 //
@@ -149,7 +149,7 @@
 //     */
 //    @Test
 //    void testMainWithLessArgsWithOptions(){
-//        MainMethodResult result = invokeMain(Project1.class, "-print" , "-less", "sahithi" , "12/12/2020", "11:34", "12/12/2020", "9:34");
+//        MainMethodResult result = invokeMain(Project1.class, "-print" , "-less", "sahithi" , "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString(Project1.Less_Num_args));
 //    }
 //
@@ -167,13 +167,13 @@
 //     */
 //    @Test
 //    void testMainWithInvalidCustomer(){
-//        MainMethodResult result = invokeMain(Project1.class,  "" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid customer name"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidCustomer1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "123" ,"9719789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "123" ,"9719789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34" , "am");
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid customer name"));
 //    }
 //
@@ -182,20 +182,20 @@
 //     */
 //    @Test
 //    void testMainWithInvalidPhonenumber(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"971978@#9630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"971978@#9630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for phone number, it cannot contain letters"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidPhonenumber1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"97199630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"97199630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid phone number, number of digits less than 10"));
 //    }
 //
 //
 //    @Test
 //    void testMainWithInvalidPhonenumber2(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"0019789630", "3128103280", "12/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"0019789630", "3128103280", "12/12/2020", "11:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString(" Invalid phone number, a phone number cannot start with zero"));
 //    }
 //
@@ -204,25 +204,25 @@
 //     */
 //    @Test
 //    void testMainWithInvalidDate(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
 //    }
 //
 //
 //    @Test
 //    void testMainWithInvalidDate1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "2112/2020", "11:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "2112/2020", "11:34", "am","12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
 //    }
 //    @Test
 //    void testMainWithInvalidEndDate(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34", "1212/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34", "am","1212/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidEndDate1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34", "22/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "21/12/2020", "11:34","am", "22/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
 //    }
 //    /**
@@ -230,25 +230,25 @@
 //     */
 //    @Test
 //    void testMainWithInvalidTime(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "34:34", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "34:34","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for time"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidTime1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "334", "12/12/2020", "9:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "334","am", "12/12/2020", "9:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for time"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidEndTime(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "934" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "3:34","am", "12/12/2020", "934", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for time"));
 //    }
 //
 //    @Test
 //    void testMainWithInvalidEndTime1(){
-//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "3:34", "12/12/2020", "25:34" );
+//        MainMethodResult result = invokeMain(Project1.class,  "Sahithi" ,"9719789630", "3128103280", "12/12/2020", "3:34","am", "12/12/2020", "25:34", "am" );
 //        assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for time"));
 //    }
 //
