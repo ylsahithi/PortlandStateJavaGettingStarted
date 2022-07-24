@@ -15,22 +15,25 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PhoneBillRestClientTest {
-//
+
 //  @Test
 //  void getAllDictionaryEntriesPerformsHttpGetWithNoParameters() throws ParserException, IOException {
-//    Map<String, String> dictionary = Map.of("One", "1", "Two", "2");
+//    Map<String, String> dictionary = Map.of("customer", "sahithi", "callee", "1234567890", "caller",
+//     "9876543210", "begintime","02/27/2022 8:56 am", "endtime", "02/27/2022 10:27 am");
 //
 //    HttpRequestHelper http = mock(HttpRequestHelper.class);
 //    when(http.get(eq(Map.of()))).thenReturn(dictionaryAsText(dictionary));
 //
 //    PhoneBillRestClient client = new PhoneBillRestClient(http);
 //
-//    assertThat(client.getAllDictionaryEntries(), equalTo(dictionary));
+//    assertThat(client.getAllDictionaryEntries("sahithi"), equalTo(dictionary));
 //  }
-//
+
 //  private HttpRequestHelper.Response dictionaryAsText(Map<String, String> dictionary) {
 //    StringWriter writer = new StringWriter();
-//    new TextDumper(writer).dump(dictionary);
+//      String[] values = dictionary.values().toArray(new String[0]);
+//
+//      new TextDumper(writer).dump(values);
 //
 //    return new HttpRequestHelper.Response(writer.toString());
 //  }

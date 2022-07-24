@@ -47,6 +47,8 @@ public class PhoneBillServlet extends HttpServlet
         String end = getParameter(ENDTIME_PARAMETER, request);
         if (customer == null) {
             missingRequiredParameter(response, CUSTOMER_PARAMETER);
+//            response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
+            return;
         }
         if (begin == null && end == null) {
             try {
@@ -57,8 +59,10 @@ public class PhoneBillServlet extends HttpServlet
         } else {
             if (begin == null) {
                 missingRequiredParameter(response, BEGINTIME_PARAMETER);
+                return;
             } else if (end == null) {
                 missingRequiredParameter(response, ENDTIME_PARAMETER);
+                return;
             } else {
                 try {
                     getCallsRequested(customer, begin, end, response);
@@ -91,7 +95,7 @@ public class PhoneBillServlet extends HttpServlet
     @Override
     protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws IOException
     {
-        System.out.println("do post");
+//        System.out.println("do post");
         response.setContentType( "text/plain" );
         String customer = getParameter(CUSTOMER_PARAMETER, request );
 //        String customer = "sahithi";
@@ -169,6 +173,7 @@ public class PhoneBillServlet extends HttpServlet
     {
         String message = Messages.missingRequiredParameter(parameterName);
         response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, message);
+        response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
     }
 
     /**
@@ -181,7 +186,7 @@ public class PhoneBillServlet extends HttpServlet
         PrintWriter pw = response.getWriter();
         PrettyPrinter pp = new PrettyPrinter();
         ValidateArgs val = new ValidateArgs();
-        if(begin == null && end == null) {
+        if(begin == null && end == null && customer != null) {
         if (customer.trim().isEmpty() || customer.length() == 1 || (customer.replaceAll("[^a-zA-Z]", "").length() == 0)) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid arguments for search ");
         }
@@ -195,6 +200,7 @@ public class PhoneBillServlet extends HttpServlet
 //                if (pb.getCustomer() == null) {
                 String msg = Messages.InvalidSearchResult();
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, msg);
+//                response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
 //                pw.println(pp.formatphoneBookEntry());
 //                response.setStatus(HttpServletResponse.SC_OK);
@@ -210,7 +216,7 @@ public class PhoneBillServlet extends HttpServlet
         else {
         PhoneBill custlog = getPhoneBill(customer);
         if (custlog == null) {
-            response.sendError(HttpServletResponse.SC_ACCEPTED, "No calls in the specific period");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, Messages.InvalidSearchResult());
 //            FileReader fr = new FileReader("dumper.txt");
 //            TextParser parse = new TextParser(fr);
 //            PhoneBill pb = (PhoneBill) parse.parse(customer);
@@ -289,7 +295,7 @@ public class PhoneBillServlet extends HttpServlet
      */
     private String getParameter(String name, HttpServletRequest request) {
       String value = request.getParameter(name);
-        System.out.println(value);
+//        System.out.println(value);
       if (value == null || "".equals(value)) {
         return null;
       } else {
@@ -314,7 +320,7 @@ public class PhoneBillServlet extends HttpServlet
             }
         }
         if(searchedBill.getPhoneCalls().isEmpty()){
-            System.out.println("no phone calls matched the selected criteria");
+            System.err.println("no phone calls matched the selected criteria");
             return null;
         }
         return searchedBill;
@@ -330,23 +336,5 @@ public class PhoneBillServlet extends HttpServlet
         }
     }
 
-//    public void  ParseandDump(PhoneCall Call) throws IOException, ParserException {
-//        FileReader fr = new FileReader("/Users/sahithiyalamarthi/Desktop/merge/PortlandStateJavaSummer2022/phonebill-web/dumper.txt");
-//        TextParser parse = new TextParser(fr);
-//        PhoneBill pb = (PhoneBill) parse.parse();
-//        String [] keys = this.customer_log.keySet().toArray(new String[0]);
-//        System.out.println(keys);
-//        for (String key : keys ) {
-//            if(key.equalsIgnoreCase(pb.getCustomer())) {
-//                for(PhoneCall call : this.customer_log.get(key).getPhoneCalls()) { pb.addPhoneCall(call); }
-//            }
-//            else{
-//                pb = new PhoneBill(key);
-//                for(PhoneCall call : this.customer_log.get(key).getPhoneCalls()) { pb.addPhoneCall(call); }
-//            }
-//        }
-//        TextDumper dumper = new TextDumper("/Users/sahithiyalamarthi/Desktop/merge/PortlandStateJavaSummer2022/phonebill-web/dumper.txt");
-//        dumper.dump(pb);
-//    }
 
 }

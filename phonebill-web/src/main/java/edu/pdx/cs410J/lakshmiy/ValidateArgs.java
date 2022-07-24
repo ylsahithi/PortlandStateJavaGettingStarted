@@ -27,8 +27,16 @@ public class ValidateArgs {
     public boolean validateSelectedArg(String customer, String begin, String end) {
         String[] start_time = begin.split(" ");
         String [] end_time = end.split(" ");
-        if ((checkForvalidString(customer)) && (checkForValidDate(start_time[0])) && (checkForValidTime(start_time[1])) && (checkforvalidFormat(start_time[2]))
-                && (checkForValidDate(end_time[0])) && (checkForValidTime(end_time[1])) && (checkforvalidFormat(end_time[2]))) {
+            if ((checkForvalidString(customer)) && (checkForValidDate(start_time[0])) && (checkForValidTime(start_time[1])) && (checkforvalidFormat(start_time[2]))
+                    && (checkForValidDate(end_time[0])) && (checkForValidTime(end_time[1])) && (checkforvalidFormat(end_time[2]))) {
+                return true;
+            }
+            return false;
+    }
+
+    public boolean validateSelectedArg(String [] args, int pos) {
+        if ((checkForvalidString(args[pos])) && (checkForValidDate(args[pos+1])) && (checkForValidTime(args[pos+2])) && (checkforvalidFormat(args[pos+3]))
+                && (checkForValidDate(args[pos+4])) && (checkForValidTime(args[pos+5])) && (checkforvalidFormat(args[pos+6]))) {
             return true;
         }
         return false;

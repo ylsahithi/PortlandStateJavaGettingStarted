@@ -48,9 +48,10 @@ public class TextDumper {
       }
       else {
         for (PhoneCall call : custlog) {
-          PW.println(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] +
-                   "," + call.getBeginTimeString().split(" ")[1] + "," + call.getBeginTimeString().split(" ")[2] + "," + call.getEndTimeString().split(" ")[0] +
-                  "," + call.getEndTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[2] + "\n");
+          PW.println(Messages.definedWordAs(bill.getCustomer(),call.getCallee(),call.getCaller(),call.getBeginTimeString(),call.getEndTimeString()));
+//          PW.println(bill.getCustomer() + "," + call.getCaller() + "," + call.getCallee() + "," + call.getBeginTimeString().split(" ")[0] +
+//                   "," + call.getBeginTimeString().split(" ")[1] + "," + call.getBeginTimeString().split(" ")[2] + "," + call.getEndTimeString().split(" ")[0] +
+//                  "," + call.getEndTimeString().split(" ")[1] + "," + call.getEndTimeString().split(" ")[2] + "\n");
         }
       }
       PW.flush();

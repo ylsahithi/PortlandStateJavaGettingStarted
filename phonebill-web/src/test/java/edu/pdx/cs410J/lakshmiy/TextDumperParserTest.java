@@ -19,7 +19,7 @@ public class TextDumperParserTest {
 //    Map<String, String> read = dumpAndParse(map);
 //    assertThat(read, equalTo(map));
 //  }
-
+//
 //  private Map<String, String> dumpAndParse(Map<String, String> map) throws ParserException {
 //    StringWriter sw = new StringWriter();
 //    TextDumper dumper = new TextDumper(sw);
@@ -28,7 +28,7 @@ public class TextDumperParserTest {
 //    String text = sw.toString();
 //
 //    TextParser parser = new TextParser(new StringReader(text));
-//    return parser.parse();
+//    return parser.parse("");
 //  }
 
 //  @Test

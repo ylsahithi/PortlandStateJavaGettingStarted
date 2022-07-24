@@ -32,12 +32,12 @@ class PhoneBillRestClientIT {
     client.removeAllDictionaryEntries();
   }
 
-  @Test
-  void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
-    PhoneBillRestClient client = newPhoneBillRestClient();
-    String dictionary = client.getAllDictionaryEntries("");
-    assertThat(dictionary.length(), equalTo(0));
-  }
+//  @Test
+//  void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
+//    PhoneBillRestClient client = newPhoneBillRestClient();
+//    String dictionary = client.getAllDictionaryEntries("");
+//    assertThat(dictionary.length(), equalTo(0));
+//  }
 
 //  @Test
 //  void test2DefineOneWord() throws IOException, ParserException {

@@ -1,9 +1,10 @@
 package edu.pdx.cs410J.lakshmiy;
 
 import edu.pdx.cs410J.ParserException;
+import edu.pdx.cs410J.web.HttpRequestHelper;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * The main class that parses the command line and communicates with the
@@ -11,147 +12,234 @@ import java.io.IOException;
  */
 public class Project4 {
 
-    public static final String MISSING_ARGS = "Missing command line arguments";
+//    public static final String MISSING_ARGS = "Missing command line arguments";
+    public static final String Missing_args = "No args provided to run, required atleast 7 args";
+    public static final String Invalid_args = "Invalid arguments passed";
+    public static final String Invalid_options = "Invalid options provided as arguments";
+    public static final String No_Print_args = "No arguments passed to print";
+    public static final String Less_Num_args = "less number of arguments passed cannot execute the class";
+    public static final String More_Num_args = "Too Many arguments for the class";
+    public static final String Readme_txt = "This is a README file! Readme.txt";
+    public static final String text_File = "Written data to dumper ";
+    public static final String Search_option_error = "Missing search arguments ";
+
 
     public static void main(String... args) throws IOException, ParserException {
-        String hostName = args[1];
-        String portString = args[3];
-        String word = null;
-        String definition = null;
-//
-//        for (String arg : args) {
-//            if (hostName == null) {
-//                hostName = arg;
-//
-//            } else if ( portString == null) {
-//                portString = arg;
-//
-//            } else if (word == null) {
-//                word = arg;
-//            } else if (definition == null) {
-//                definition = arg;
-//
-//            } else {
-//                usage("Extraneous command line argument: " + arg);
-//            }
-//        }
-//
-//        if (hostName == null) {
-//            usage( MISSING_ARGS );
-//
-//        } else if ( portString == null) {
-//            usage( "Missing port" );
-//        }
+//        System.out.println(args.length);
+        validateInputArgsCount(args);
 
+    }
+
+    /**
+     * This function returns void and prints contents of readme file
+     * It is called when user arguments has readme option
+     * return void
+     *
+     */
+    public static void printREADMEOption(){
+        BufferedReader br = null;
+        try {
+            InputStream ReadmeFile = Project4.class.getResourceAsStream("README.txt");
+            InputStreamReader temp = new InputStreamReader(ReadmeFile);
+            br = new BufferedReader(temp);
+            String lines;
+            while ((lines = br.readLine()) != null) {
+                System.out.println(lines);
+            }
+            printErrorMessage(Readme_txt);
+            return;
+        } catch (IOException IO) {
+            System.err.println("No file found on source system");
+        }
+    }
+
+    /**
+     *  This method is used to print error message in the application
+     *  @param  message
+     *
+     */
+    public static void printErrorMessage(String message) {
+        System.err.println(message);
+        return;
+    }
+
+    /**
+     * host port search print readme
+     * 5, 9
+     * @param args
+     * @throws ParserException
+     * @throws IOException
+     */
+
+    public static void validateInputArgsCount(String[] args) throws ParserException, IOException {
+        ValidateArgs va = new ValidateArgs();
+        ArrayList list = new ArrayList<>();
+        int search = 0;
+        int index = 1;
+        /**
+         * picking up text file and pretty file from user arguments
+         */
+        for (String arg : args) {
+            list.add(arg.toLowerCase().trim());
+            if (arg.equalsIgnoreCase("-search")) {
+                search = index;
+
+            }
+            index++;
+        }
+        /**
+         * If there are no arguments passed to main function
+         */
+        if (index == 0) {
+            printErrorMessage(Missing_args);
+            return;
+        }
+        /**
+         * If readme is one of the arguments then it prints readme and exit
+         * prints read me in system error
+         */
+
+        if (list.contains("-readme") && list.indexOf("-readme") <= 5) {
+            printREADMEOption();
+            return;
+        }
+
+        if ((!list.contains("-host")) && !(list.contains("-port"))) {
+            printErrorMessage(Missing_args);
+            return;
+        }
+        String hostname = args[list.indexOf("-host") + 1];
+        String portString = args[list.indexOf("-port") + 1];
         int port;
         try {
             port = Integer.parseInt(portString);
 
         } catch (NumberFormatException ex) {
-            System.out.println("Port \"" + portString + "\" must be an integer");
+            System.err.println("Port \"" + portString + "\" must be an integer");
             return;
         }
 
-        PhoneBillRestClient client = new PhoneBillRestClient(hostName, port);
-        String message;
-        PhoneCall pc = new PhoneCall(args, 4);
-//        System.out.println(pc.toString());
-        System.out.println("customer"+ pc.getCustomer() +
-                "callee" + pc.getCallee() +
-                "caller" + pc.getCaller() +
-                "begintime" + pc.getBeginTimeString() +
-                "endtime" + pc.getEndTimeString());
-//        FileReader fr = new FileReader("/Users/sahithiyalamarthi/Desktop/merge/PortlandStateJavaSummer2022/phonebill-web/dumper.txt");
-//        TextParser parse = new TextParser(fr);
-//        PhoneBill pb =  parse.parse("abc");
-////        System.out.println(pb.getCustomer());
-//        PrettyPrinter pp = new PrettyPrinter();
-//        String res = pp.formatphoneBookEntry(pb);
-//        System.out.println(res);
-//        client.addPhoneCallEntry(pc);
-//        String res = client.getCallsBetweenDates("sahithi","12/12/2020 1:23 am", "12/12/2020 5:23 am");
-       client.removeAllDictionaryEntries();
-//        System.out.println(res);
-//        PhoneBill pb  = new PhoneBill(pc.getCustomer());
-//        pb.addPhoneCall(pc);
-//        TextDumper dump = new TextDumper("/Users/sahithiyalamarthi/Desktop/merge/PortlandStateJavaSummer2022/phonebill-web/dumper.txt");
-//        dump.dump(pb);
-
-
+        if (args.length >= 1 && args.length < 6 ) {
+            if (list.contains("-print")) { printErrorMessage(No_Print_args);  return;}
+            else if (list.contains("-search")) { printErrorMessage(Less_Num_args);  return;}
+            else {
+                printErrorMessage(Less_Num_args);
+                return;
             }
-
         }
-//        client.getentirelog();
-//        System.out.println(client.getAllDictionaryEntries(pc.getCustomer()));
-//        message = PrettyPrinter.formatphoneBookEntry(new PhoneBill(args[4], pc));
-//        System.out.println(message);
-//        try {
-//            if (word == null) {
-//                // Print all word/definition pairs
-//                Map<String, String> dictionary = client.getAllDictionaryEntries();
-//                StringWriter sw = new StringWriter();
-//                PrettyPrinter pretty = new PrettyPrinter(sw);
-//                pretty.dump(dictionary);
-//                message = sw.toString();
-//
-//            } else if (definition == null) {
-//                // Print all dictionary entries
-//                message = PrettyPrinter.formatDictionaryEntry(word, client.getDefinition(word));
-//
-//            } else {
-//                // Post the word/definition pair
-//                client.addDictionaryEntry(word, definition);
-//                message = Messages.definedWordAs(word, definition);
-//            }
-//
-//        } catch (IOException | ParserException ex ) {
-//            error("While contacting server: " + ex);
-//            return;
-//        }
-//
-//        System.out.println(message);
-//    }
+
+        PhoneBillRestClient client = new PhoneBillRestClient(hostname,port);
 
         /**
-         * Makes sure that the give response has the expected HTTP status code
-         * @param code The expected status code
-         * @param response The response from the server
+         * If there are only less number of argument passed
          */
-//    private static void checkResponseCode( int code, HttpRequestHelper.Response response )
-//    {
-//        if (response.getHttpStatusCode() != code) {
-//            error(String.format("Expected HTTP code %d, got code %d.\n\n%s", code,
-//                                response.getHttpStatusCode(), response.getContent()));
-//        }
-//    }
 
-//    private static void error( String message )
-//    {
-//        PrintStream err = System.err;
-//        err.println("** " + message);
-//    }
+        /**
+         * If more than 13 args are passed
+         */
+         if (args.length >= 15) {
+            printErrorMessage(More_Num_args);
+            return;
+            /**
+             * If more than 4 and less than 7 args are passed
+             */
+        } else if ((args.length <= 9) && (args.length >= 6)) {
+            printErrorMessage(Less_Num_args);
+            return;
+            /**
+             * If valid arguments are passed in expected order.
+             */
+        } else if (search != 0) {
+             ArrayList searchargs = new ArrayList<>();
+             for (int i = search; i < args.length; i++) {
+                 searchargs.add(args[i]);
+             }
+             if (searchargs.size() == 7) {
+                 if (!va.validateSelectedArg(args, search)) {
+                     printErrorMessage(Invalid_args);
+                     return;
+                 } else {
+                     ///addd get call
+
+                     client.getCallsBetweenDates(searchargs);
+                 }
+             }
+             else {
+                 printErrorMessage(Invalid_args);
+             }
+         }
+         else if(args.length >= 10 && args.length < 13) {
+             if (!(list.contains("-print") || list.contains("-search") || list.contains("-readme"))) {
+                 printErrorMessage(Invalid_options);
+                 return;
+             }
+             printErrorMessage(Invalid_args);
+         }
+         else if (args.length == 13) {
+            if ((list.contains("-print") || list.contains("-search") || list.contains("-readme"))) {
+                printErrorMessage(Less_Num_args);
+                return;
+            }
+            else {
+                if (!va.validateEachArg(args,4)) {
+                    printErrorMessage(Invalid_args);
+                    return;
+                } else {
+                    PhoneCall callData = new PhoneCall(args,4);
+                    client.addPhoneCallEntry(callData);
+                    PhoneBill cust = new PhoneBill(args[4], callData);
+                    if(list.contains("-print")) { System.out.println(callData.toString());  }
+                    System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
+                    System.out.println(
+                            Messages.definedWordAs(callData.getCustomer(),callData.getCaller(),callData.getCallee(),callData.getBeginTimeString(),callData.getEndTimeString()));
+                }
+            }
+        } else if (args.length == 14) {
+            if (!va.validateEachArg(args,5)) {
+                printErrorMessage(Invalid_args);
+                return;
+            } else {
+                    PhoneCall callData = new PhoneCall(args, 5);
+                PhoneBill cust = new PhoneBill(args[4], callData);
+                    client.addPhoneCallEntry(callData);
+                System.out.println(Messages.definedWordAs(callData.getCustomer(),callData.getCaller(),callData.getCallee(),callData.getBeginTimeString(),callData.getEndTimeString()));
+                System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
+//
+                    if(list.contains("-print")) { System.out.println(callData.toString());  }
+                if (!(list.contains("-print") ||  list.contains("-readme") || list.contains("-search"))) {
+                    printErrorMessage(Invalid_options);
+                }
+            }
+        }
+        return;
+    }
+
+    private static void error( String message )
+    {
+        PrintStream err = System.err;
+        err.println("** " + message);
+    }
 
         /**
          * Prints usage information for this program and exits
          * @param message An error message to print
          */
-//    private static void usage( String message )
-//    {
-//        PrintStream err = System.err;
-//        err.println("** " + message);
-//        err.println();
-//        err.println("usage: java Project4 host port [word] [definition]");
-//        err.println("  host         Host of web server");
-//        err.println("  port         Port of web server");
-//        err.println("  word         Word in dictionary");
-//        err.println("  definition   Definition of word");
-//        err.println();
-//        err.println("This simple program posts words and their definitions");
-//        err.println("to the server.");
-//        err.println("If no definition is specified, then the word's definition");
-//        err.println("is printed.");
-//        err.println("If no word is specified, all dictionary entries are printed");
-//        err.println();
-//    }
-//    }
-//}
+    private static void usage( String message )
+    {
+        PrintStream err = System.err;
+        err.println("** " + message);
+        err.println();
+        err.println("usage: java Project4 host port [word] [definition]");
+        err.println("  host         Host of web server");
+        err.println("  port         Port of web server");
+        err.println("  word         Word in dictionary");
+        err.println("  definition   Definition of word");
+        err.println();
+        err.println("This simple program posts words and their definitions");
+        err.println("to the server.");
+        err.println("If no definition is specified, then the word's definition");
+        err.println("is printed.");
+        err.println("If no word is specified, all dictionary entries are printed");
+        err.println();
+    }
+}

@@ -6,6 +6,7 @@ import edu.pdx.cs410J.web.HttpRequestHelper;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Map;
 
 import static edu.pdx.cs410J.web.HttpRequestHelper.Response;
@@ -68,7 +69,14 @@ public class PhoneBillRestClient {
   /**
    * Returns the definition for the given word
    */
-  public String getCallsBetweenDates(String customer, String start, String end) throws IOException, ParserException {
+  public String getCallsBetweenDates(ArrayList <String> args) throws IOException, ParserException {
+    String customer = args.get(0);
+    String start = "";
+    String end = "";
+    if(args.size() > 1) {
+      start = args.get(1) + " " + args.get(2) + " " + args.get(3);
+      end = args.get(4) + " " + args.get(5) + " " + args.get(6);
+    }
     Response response = http.get(Map.of("customer",customer, "start", start, "end", end));
     if(response.getContent().equalsIgnoreCase("Accepted")){
       return Messages.SearchNocalls();
@@ -84,7 +92,7 @@ public class PhoneBillRestClient {
   }
 
     public void addPhoneCallEntry(PhoneCall call) throws IOException {
-      System.out.println(call.getCustomer());
+//      System.out.println(call.getCustomer());
       Response response = http.post(Map.of("customer", call.getCustomer(),
               "callee", call.getCallee(),
               "caller", call.getCaller(),
@@ -100,12 +108,15 @@ public class PhoneBillRestClient {
 
     private void throwExceptionIfNotOkayHttpStatus(Response response) {
       int code = response.getHttpStatusCode();
-      System.out.println(code);
+
       if (code != HTTP_OK) {
         String message = response.getContent();
-        System.out.println(message);
+        System.err.println(message);
 //        Messages.missingRequiredParameter(response, C)
 //        throw new RestException(code, message);
+      }
+      else {
+        System.err.println((code) + " :Successful response");
       }
     }
 

@@ -26,9 +26,9 @@ public class Messages
         return String.format("Searched for Phone call that doesnot exist");
     }
 
-    public static String definedWordAs(String word, String definition )
+    public static String definedWordAs(String customer, String callee, String caller, String begin, String end )
     {
-        return String.format( "Defined %s as %s", word, definition );
+        return String.format( "Customer %s has a call log with %s to caller as %s from %s to %s", customer, caller, callee, begin, end );
     }
 
     public static String SearchNocalls()
