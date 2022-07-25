@@ -24,6 +24,14 @@ public class ValidateArgs {
         return false;
     }
 
+    /**
+     * This method is used to check for valid arguments in case of -search option present in user arguments
+     * @param customer
+     * @param begin
+     * @param end
+     * @return
+     */
+
     public boolean validateSelectedArg(String customer, String begin, String end) {
         String[] start_time = begin.split(" ");
         String [] end_time = end.split(" ");
@@ -103,6 +111,12 @@ public class ValidateArgs {
         }
     }
 
+    /**
+     * This method validates Date value in args checks if it is valid
+     * @param date
+     * @return
+     */
+
     public  Date  parseInputDate(String date) {
         try {
             SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
@@ -136,10 +150,16 @@ public class ValidateArgs {
         }
     }
 
+
+    /**
+     * This method validates Time format value in args checks if it is valid
+     * return type is  boolean
+     * @param time
+     *
+     */
     @VisibleForTesting
     public  boolean checkforvalidFormat(String time) {
        if(time.equalsIgnoreCase("AM") || time.equalsIgnoreCase("PM")){
-//           System.out.println("time valid ");
            return true;
        }
        return false;

@@ -33,9 +33,6 @@ class PhoneBillServletTest {
     when(response.getWriter()).thenReturn(pw);
 
     servlet.doGet(request, response);
-//    System.out.println(response.getStatus());
-
-    // Nothing is written to the response's PrintWriter
     verify(pw, never()).println(anyString());
     verify(response).setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
   }
@@ -100,10 +97,8 @@ class PhoneBillServletTest {
 
   @Test
   void SearchForCallthatCustomerDoesntExist() throws IOException {
-//    String customer = "Dave";
     PhoneBillServlet servlet = new PhoneBillServlet();
     HttpServletRequest request = mock(HttpServletRequest.class);
-//    when(request.getParameter("customer")).thenReturn(customer);
     HttpServletResponse response = mock(HttpServletResponse.class);
     servlet.doGet(request, response);
     verify(response).sendError(HttpServletResponse.SC_PRECONDITION_FAILED, Messages.missingRequiredParameter("customer"));
@@ -116,7 +111,6 @@ class PhoneBillServletTest {
   String end = "02/27/2022 10:27 am";
   String callee = "503-245-2345";
   String caller = "765-389-1273";
-//  PhoneBillServlet servlet = new PhoneBillServlet();
   HttpServletRequest request = mock(HttpServletRequest.class);
   when(request.getParameter("customer")).thenReturn(customer);
   when(request.getParameter("begintime")).thenReturn(begin);
@@ -124,7 +118,6 @@ class PhoneBillServletTest {
   when(request.getParameter("callee")).thenReturn(callee);
   when(request.getParameter("caller")).thenReturn(caller);
   HttpServletResponse response = mock(HttpServletResponse.class);
-//  HttpServletResponse response = mock(HttpServletResponse.class);
   StringWriter stringWriter = new StringWriter();
   PrintWriter pw = new PrintWriter(stringWriter, true);
   when(response.getWriter()).thenReturn(pw);
@@ -135,5 +128,33 @@ class PhoneBillServletTest {
           begin,
           end)));
   }
+
+  @Test
+  void SearchCall() throws IOException {
+    PhoneBillServlet servlet = new PhoneBillServlet();
+    String customer = "Dave";
+    String begin = "02/27/2022 8:56 am";
+    String end = "02/27/2022 10:27 am";
+    String callee = "503-245-2345";
+    String caller = "765-389-1273";
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    when(request.getParameter("customer")).thenReturn(customer);
+    when(request.getParameter("begintime")).thenReturn(begin);
+    when(request.getParameter("endtime")).thenReturn(end);
+    when(request.getParameter("callee")).thenReturn(callee);
+    when(request.getParameter("caller")).thenReturn(caller);
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter pw = new PrintWriter(stringWriter, true);
+    when(response.getWriter()).thenReturn(pw);
+    servlet.doPost(request, response);
+    when(response.getWriter()).thenReturn(pw);
+//    verify(response).setStatus(HttpServletResponse.SC_OK);
+    servlet.doGet(request, response);
+//    verify(response).setStatus(HttpServletResponse.SC_OK);
+    assertThat(stringWriter.toString(), containsString("Dave"));
+  }
+
+
 
 }

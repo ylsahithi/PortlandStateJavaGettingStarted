@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -32,12 +33,14 @@ class PhoneBillRestClientIT {
     client.removeAllDictionaryEntries();
   }
 
-//  @Test
-//  void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
-//    PhoneBillRestClient client = newPhoneBillRestClient();
-//    String dictionary = client.getAllDictionaryEntries("");
-//    assertThat(dictionary.length(), equalTo(0));
-//  }
+  @Test
+  void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
+    PhoneBillRestClient client = newPhoneBillRestClient();
+    ArrayList ar = new ArrayList();
+    ar.add("abx");
+    String dictionary = client.getCallsBetweenDates(ar);
+    assertThat(dictionary, equalTo("Searched for Phone call that doesnot exist"));
+  }
 
 //  @Test
 //  void test2DefineOneWord() throws IOException, ParserException {

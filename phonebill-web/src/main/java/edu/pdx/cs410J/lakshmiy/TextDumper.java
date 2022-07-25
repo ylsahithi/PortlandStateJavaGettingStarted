@@ -3,48 +3,32 @@ package edu.pdx.cs410J.lakshmiy;
 import java.io.*;
 import java.util.Collection;
 
+/**
+ * Dumper class to write customer call logs
+ */
 public class TextDumper {
   private final Writer writer;
 
+  /**
+   * This is custom constructor to Dumper class it creates writer object to write call logs
+   * @param writer
+   */
   public TextDumper(Writer writer) {
     this.writer = writer;
   }
 
-//  public void dump(Map<String, String> dictionary) {
-//    try (
-//      PrintWriter pw = new PrintWriter(this.writer)
-//    ){
-//      for (Map.Entry<String, String> entry : dictionary.entrySet()) {
-//        pw.println(entry.getKey() + " : " + entry.getValue());
-//      }
-//
-//      pw.flush();
-//    }
-//  }
-
-//  public TextDumper(String filename)  {
-//    System.out.println(filename);
-//    if (filename.isEmpty() || filename == null) {
-//      throw new IllegalArgumentException("Expected filename but got a null");
-//    }
-//    File fle = new File(filename);
-//    if(fle.length() == 0){
-//      System.out.println("File is empty creating a file with given name");
-//      fle.createNewFile();
-//    }
-//    FileWriter FW = new FileWriter(filename);
-//    this.writer = FW;
-//    this.filename = filename;
-//  }
-
+  /**
+   * This function recieves phone bill object and writes log to console and to web API
+   * @param bill
+   */
 
   public void dump(PhoneBill bill) {
     try {
       PrintWriter PW = new PrintWriter(this.writer);
-//      BufferedWriter bw = new BufferedWriter(FW);
       Collection<PhoneCall> custlog = bill.getPhoneCalls();
       if(custlog.isEmpty()){
-        System.err.println("cutomser log is empty");
+        System.err.println("customer log is empty");
+        throw new Exception("customer log is empty");
       }
       else {
         for (PhoneCall call : custlog) {

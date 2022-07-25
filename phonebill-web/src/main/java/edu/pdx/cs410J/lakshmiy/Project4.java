@@ -104,6 +104,9 @@ public class Project4 {
             return;
         }
 
+        /**
+         * If host and port name is not present in user arguments
+         */
         if ((!list.contains("-host")) && !(list.contains("-port"))) {
             printErrorMessage(Missing_args);
             return;
@@ -119,7 +122,10 @@ public class Project4 {
             return;
         }
 
-        if (args.length >= 1 && args.length < 6 ) {
+        /**
+         * Less number of arguments
+         */
+        if (args.length >= 1 && args.length <= 4 ) {
             if (list.contains("-print")) { printErrorMessage(No_Print_args);  return;}
             else if (list.contains("-search")) { printErrorMessage(Less_Num_args);  return;}
             else {
@@ -128,40 +134,45 @@ public class Project4 {
             }
         }
 
-        PhoneBillRestClient client = new PhoneBillRestClient(hostname,port);
-
         /**
-         * If there are only less number of argument passed
+         * Get call if only customer name is passed
          */
-
+        PhoneBillRestClient client = new PhoneBillRestClient(hostname,port);
+        if(args.length == 5){
+            ArrayList searchargs = new ArrayList<>();
+                searchargs.add(args[4]);
+            String response = client.getCallsBetweenDates(searchargs);
+            System.out.println(response);
+                }
         /**
-         * If more than 13 args are passed
+         * If more than 15 args are passed
          */
          if (args.length >= 15) {
             printErrorMessage(More_Num_args);
             return;
             /**
-             * If more than 4 and less than 7 args are passed
+             * If more than 6 and less than 9 args are passed
              */
         } else if ((args.length <= 9) && (args.length >= 6)) {
             printErrorMessage(Less_Num_args);
             return;
             /**
              * If valid arguments are passed in expected order.
+             * GEt call in case of -search option
              */
         } else if (search != 0) {
              ArrayList searchargs = new ArrayList<>();
              for (int i = search; i < args.length; i++) {
                  searchargs.add(args[i]);
              }
+             System.out.println(searchargs);
              if (searchargs.size() == 7) {
                  if (!va.validateSelectedArg(args, search)) {
                      printErrorMessage(Invalid_args);
                      return;
                  } else {
-                     ///addd get call
-
-                     client.getCallsBetweenDates(searchargs);
+                     String response = client.getCallsBetweenDates(searchargs);
+                     System.out.println(response);
                  }
              }
              else {
@@ -175,6 +186,9 @@ public class Project4 {
              }
              printErrorMessage(Invalid_args);
          }
+         /**
+          * Expected number of arguments passed for post call
+          */
          else if (args.length == 13) {
             if ((list.contains("-print") || list.contains("-search") || list.contains("-readme"))) {
                 printErrorMessage(Less_Num_args);
@@ -214,13 +228,7 @@ public class Project4 {
         return;
     }
 
-    private static void error( String message )
-    {
-        PrintStream err = System.err;
-        err.println("** " + message);
-    }
-
-        /**
+    /**
          * Prints usage information for this program and exits
          * @param message An error message to print
          */
@@ -235,11 +243,9 @@ public class Project4 {
         err.println("  word         Word in dictionary");
         err.println("  definition   Definition of word");
         err.println();
-        err.println("This simple program posts words and their definitions");
+        err.println("This simple program posts call logs and their customers");
         err.println("to the server.");
-        err.println("If no definition is specified, then the word's definition");
-        err.println("is printed.");
-        err.println("If no word is specified, all dictionary entries are printed");
+        err.println("If no call is specified, then it returns empty");
         err.println();
     }
 }

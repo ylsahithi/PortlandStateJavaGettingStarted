@@ -11,13 +11,26 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TExt parser class to parse input call logs
+ */
 public class TextParser {
   private final Reader reader;
 
+  /**
+   * This is custom constructor which creates reader object to parse logs
+   * @param reader
+   */
   public TextParser(Reader reader) {
     this.reader = reader;
   }
 
+  /**
+   * This function parse input logs from reader and search for log with particular customer name
+   * @param Searchcustomer
+   * @return
+   * @throws ParserException
+   */
   public PhoneBill parse(String Searchcustomer) throws ParserException {
     String line = "";
     ArrayList<String> linesList = new ArrayList<>();

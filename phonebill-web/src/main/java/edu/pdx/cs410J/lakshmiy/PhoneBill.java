@@ -56,6 +56,10 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     return this.phoneLog;
   }
 
+  /**
+   * This function compares call logs stored based on begin time and sort them in ascending order.
+   */
+
   public static Comparator<PhoneCall> comparecalls  = new Comparator<PhoneCall> (){
   @Override
     public int compare(PhoneCall c1, PhoneCall c2){

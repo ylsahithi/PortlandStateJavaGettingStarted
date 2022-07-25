@@ -68,7 +68,7 @@ class Project4IT extends InvokeMainTestCase {
     @Test
     void testWithOpts1() {
         MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080" , "search" );
-        assertThat(result.getTextWrittenToStandardError(), containsString(Project4.Less_Num_args));
+        assertThat(result.getTextWrittenToStandardError(), containsString("Searched for Phone call that doesnot exist"));
     }
 
     @Test
@@ -134,6 +134,12 @@ class Project4IT extends InvokeMainTestCase {
     void testvalidSearchArgsnoOpts9() {
         MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "-search", "sahithi","02/27/2022", "8:56" ,"am","02/2a/2022", "10:27" ,"am" );
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
+    }
+
+    @Test
+    void testvalidSearchArgsnoOpts8() {
+        MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "sahithi");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Searched for Phone call that doesnot exist"));
     }
 
     @Test

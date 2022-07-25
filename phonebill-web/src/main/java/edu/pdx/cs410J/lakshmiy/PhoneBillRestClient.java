@@ -24,7 +24,6 @@ public class PhoneBillRestClient {
     private static final String SERVLET = "calls";
 
   private final HttpRequestHelper http;
-//  private final String url;
 
     /**
      * Creates a client to the Phone Bil REST service running on the given host and port
@@ -34,40 +33,20 @@ public class PhoneBillRestClient {
     public PhoneBillRestClient( String hostName, int port )
     {
       this(new HttpRequestHelper(String.format("http://%s:%d/%s/%s", hostName, port, WEB_APP, SERVLET)));
-//      this.url = String.format("http://%s:%d/%s/%s", hostName, port, WEB_APP, SERVLET);
-
     }
 
+  /**
+   * Used for creating http object for testing purpose
+   * @param http
+   */
   @VisibleForTesting
   PhoneBillRestClient(HttpRequestHelper http) {
     this.http = http;
   }
 
   /**
-   * Returns all dictionary entries from the server
-   */
-  public String getAllDictionaryEntries(String customer) throws IOException, ParserException {
-    Response response = http.get(Map.of("customer",customer));
-    throwExceptionIfNotOkayHttpStatus(response);
-    String call = response.getContent();
-    return call;
-  }
-
-
-  public String getentirelog() throws IOException, ParserException {
-    Response response = http.get(Map.of());
-    throwExceptionIfNotOkayHttpStatus(response);
-    String call = response.getContent();
-    TextParser parser = new TextParser(new StringReader(call));
-    PhoneBill bill = parser.parse("");
-    PrettyPrinter pp = new PrettyPrinter();
-    String entries = pp.formatphoneBookEntry(bill);
-    return entries;
-  }
-
-
-  /**
-   * Returns the definition for the given word
+   * Returns the call log of customer based on search dates, If customer name is the only argument passed,
+   * it will return all call data for customer
    */
   public String getCallsBetweenDates(ArrayList <String> args) throws IOException, ParserException {
     String customer = args.get(0);
@@ -77,22 +56,19 @@ public class PhoneBillRestClient {
       start = args.get(1) + " " + args.get(2) + " " + args.get(3);
       end = args.get(4) + " " + args.get(5) + " " + args.get(6);
     }
+    System.out.println("customer" + customer +  "start" + start + "end"+ end);
     Response response = http.get(Map.of("customer",customer, "start", start, "end", end));
-    if(response.getContent().equalsIgnoreCase("Accepted")){
-      return Messages.SearchNocalls();
-    }
     throwExceptionIfNotOkayHttpStatus(response);
     String calls = response.getContent();
-//
-//    TextParser parser = new TextParser(new StringReader(calls));
-//    PhoneBill log = parser.parse(customer);
-//    PrettyPrinter pp = new PrettyPrinter();
-//    String entries = pp.formatphoneBookEntry(log);
     return calls;
   }
 
+  /**
+   * Adds call details to log with post action
+   * @param call
+   * @throws IOException
+   */
     public void addPhoneCallEntry(PhoneCall call) throws IOException {
-//      System.out.println(call.getCustomer());
       Response response = http.post(Map.of("customer", call.getCustomer(),
               "callee", call.getCallee(),
               "caller", call.getCaller(),
@@ -101,19 +77,25 @@ public class PhoneBillRestClient {
       throwExceptionIfNotOkayHttpStatus(response);
     }
 
+  /**
+   * Delete entire log
+   * @throws IOException
+   */
   public void removeAllDictionaryEntries() throws IOException {
       Response response = http.delete(Map.of());
       throwExceptionIfNotOkayHttpStatus(response);
     }
 
-    private void throwExceptionIfNotOkayHttpStatus(Response response) {
+  /**
+   * used to catch exception from http response object
+   * @param response
+   */
+  private void throwExceptionIfNotOkayHttpStatus(Response response) {
       int code = response.getHttpStatusCode();
 
       if (code != HTTP_OK) {
         String message = response.getContent();
         System.err.println(message);
-//        Messages.missingRequiredParameter(response, C)
-//        throw new RestException(code, message);
       }
       else {
         System.err.println((code) + " :Successful response");
