@@ -206,10 +206,13 @@ public class Project4 {
                         if (list.contains("-print")) {
                             System.out.println(callData.toString());
                         } else {
-                            client.addPhoneCallEntry(callData);
+                            int response = client.addPhoneCallEntry(callData);
+//                            System.out.println(response);
+                            if (response == 200) {
                             System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
                             System.out.println(
                                     Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
+                        }
                         }
                     }
                 }
@@ -224,9 +227,12 @@ public class Project4 {
                         System.out.println(callData.toString());
                     }
                     else {
-                        client.addPhoneCallEntry(callData);
-                        System.out.println(Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
-                        System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
+                        int response = client.addPhoneCallEntry(callData);
+//                        System.out.println(response);
+                        if (response == 200) {
+                            System.out.println(Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
+                            System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
+                        }
                     }
                     if (!(list.contains("-print") || list.contains("-readme") || list.contains("-search"))) {
                         printErrorMessage(Invalid_options);

@@ -68,13 +68,14 @@ public class PhoneBillRestClient {
    * @param call
    * @throws IOException
    */
-    public void addPhoneCallEntry(PhoneCall call) throws IOException {
+    public int addPhoneCallEntry(PhoneCall call) throws IOException {
       Response response = http.post(Map.of("customer", call.getCustomer(),
               "callee", call.getCallee(),
               "caller", call.getCaller(),
               "begintime", call.getBeginTimeString(),
               "endtime", call.getEndTimeString()));
       throwExceptionIfNotOkayHttpStatus(response);
+      return response.getHttpStatusCode();
     }
 
   /**
