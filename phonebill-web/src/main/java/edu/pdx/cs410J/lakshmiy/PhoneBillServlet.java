@@ -62,7 +62,7 @@ public class PhoneBillServlet extends HttpServlet
                 missingRequiredParameter(response, ENDTIME_PARAMETER);
             } else {
                 try {
-                    System.out.println("entered secnf loop ");
+//                    System.out.println("entered secnf loop ");
                     getCallsRequested(customer, begin, end, response);
                 } catch (ParserException e) {
                     throw new RuntimeException(e);

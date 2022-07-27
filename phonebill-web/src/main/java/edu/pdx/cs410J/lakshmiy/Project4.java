@@ -202,14 +202,15 @@ public class Project4 {
                         return;
                     } else {
                         PhoneCall callData = new PhoneCall(args, 4);
-                        client.addPhoneCallEntry(callData);
                         PhoneBill cust = new PhoneBill(args[4], callData);
                         if (list.contains("-print")) {
                             System.out.println(callData.toString());
+                        } else {
+                            client.addPhoneCallEntry(callData);
+                            System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
+                            System.out.println(
+                                    Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
                         }
-                        System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
-                        System.out.println(
-                                Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
                     }
                 }
             } else if (args.length == 14) {
@@ -219,11 +220,13 @@ public class Project4 {
                 } else {
                     PhoneCall callData = new PhoneCall(args, 5);
                     PhoneBill cust = new PhoneBill(args[4], callData);
-                    client.addPhoneCallEntry(callData);
-                    System.out.println(Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
-                    System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
                     if (list.contains("-print")) {
                         System.out.println(callData.toString());
+                    }
+                    else {
+                        client.addPhoneCallEntry(callData);
+                        System.out.println(Messages.definedWordAs(callData.getCustomer(), callData.getCaller(), callData.getCallee(), callData.getBeginTimeString(), callData.getEndTimeString()));
+                        System.out.println(PrettyPrinter.formatphoneBookEntry(cust));
                     }
                     if (!(list.contains("-print") || list.contains("-readme") || list.contains("-search"))) {
                         printErrorMessage(Invalid_options);
