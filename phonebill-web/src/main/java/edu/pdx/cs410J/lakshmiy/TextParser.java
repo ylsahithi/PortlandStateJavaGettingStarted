@@ -55,9 +55,7 @@ public class TextParser {
       if (phonebook.length >= 9) {
         boolean checkFlag = va.validateEachArg(phonebook, 0);
         if (checkFlag == true && phonebook[0].equalsIgnoreCase(Searchcustomer)) {
-//          System.out.println("inner cond" + phonebook[1]);
             bill.addPhoneCall(new PhoneCall(phonebook, 0));
-//          System.out.println(bill.getPhoneCalls());
         }
       } else {
         return bill;

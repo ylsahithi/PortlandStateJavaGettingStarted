@@ -56,8 +56,8 @@ public class PhoneBillRestClient {
       start = args.get(1) + " " + args.get(2) + " " + args.get(3);
       end = args.get(4) + " " + args.get(5) + " " + args.get(6);
     }
-    System.out.println("customer" + customer +  "start" + start + "end"+ end);
-    Response response = http.get(Map.of("customer",customer, "start", start, "end", end));
+//    System.out.println("customer" + customer +  "start" + start + "end"+ end);
+    Response response = http.get(Map.of("customer",customer, "begintime", start, "endtime", end));
     throwExceptionIfNotOkayHttpStatus(response);
     String calls = response.getContent();
     return calls;

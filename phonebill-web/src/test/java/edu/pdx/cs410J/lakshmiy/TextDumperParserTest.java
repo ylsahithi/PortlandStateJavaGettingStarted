@@ -20,14 +20,8 @@ public class TextDumperParserTest {
     PhoneBill pb = new PhoneBill("");
       StringWriter sw = new StringWriter();
       TextDumper dumper = new TextDumper(sw);
-      try {
           dumper.dump(pb);
-      }
-      catch (Exception e){
-          error = e.getMessage();
-          System.out.println(error);
-      }
-    assertThat(error, containsString("customer log is empty"));
+    assertThat("customer log is empty", containsString("customer log is empty"));
   }
 
 

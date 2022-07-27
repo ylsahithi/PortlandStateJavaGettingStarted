@@ -48,7 +48,6 @@ public class PhoneBillServlet extends HttpServlet
         if (customer == null) {
             missingRequiredParameter(response, CUSTOMER_PARAMETER);
 //            response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
-            return;
         }
         if (begin == null && end == null) {
             try {
@@ -59,12 +58,11 @@ public class PhoneBillServlet extends HttpServlet
         } else {
             if (begin == null) {
                 missingRequiredParameter(response, BEGINTIME_PARAMETER);
-                return;
             } else if (end == null) {
                 missingRequiredParameter(response, ENDTIME_PARAMETER);
-                return;
             } else {
                 try {
+                    System.out.println("entered secnf loop ");
                     getCallsRequested(customer, begin, end, response);
                 } catch (ParserException e) {
                     throw new RuntimeException(e);
@@ -194,6 +192,7 @@ public class PhoneBillServlet extends HttpServlet
                 TextDumper dumper = new TextDumper(pw);
                 dumper.dump(custlog);
                 response.setStatus(HttpServletResponse.SC_OK);
+//                return  pp.formatphoneBookEntry(custlog);
             }
         }
         }
@@ -210,9 +209,8 @@ public class PhoneBillServlet extends HttpServlet
             Date end_date = val.parseInputDate(end);
             PhoneBill requestedCalls = new PhoneBill(customer);
             for (PhoneCall call : this.customer_log.get(customer).getPhoneCalls()) {
-                if((call.getBeginTimeDate().equals(begin_date) || call.getBeginTimeDate().after(begin_date)) && (call.getBeginTimeDate().equals(end_date) || call.getBeginTimeDate().before(end_date)))
+                if(((call.getBeginTimeDate().equals(begin_date)) || (call.getBeginTimeDate().after(begin_date))) && ((call.getBeginTimeDate().equals(end_date)) || (call.getBeginTimeDate().before(end_date))))
                 {
-                    System.out.println(call.toString());
                     requestedCalls.addPhoneCall(call);
                 }
             }
@@ -223,8 +221,9 @@ public class PhoneBillServlet extends HttpServlet
                 pw.println(pp.formatphoneBookEntry(requestedCalls));
                 TextDumper dumper = new TextDumper(pw);
                 dumper.dump(requestedCalls);
-                System.out.println(pp.formatphoneBookEntry(requestedCalls));
                 response.setStatus(HttpServletResponse.SC_OK);
+//                return  pp.formatphoneBookEntry(requestedCalls);
+
             }
             }
         }
