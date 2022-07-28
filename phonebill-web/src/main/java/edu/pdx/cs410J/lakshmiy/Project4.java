@@ -168,11 +168,11 @@ public class Project4 {
                  */
             } else if (search != 0 && args.length > 5) {
                 ArrayList searchargs = new ArrayList<>();
-                System.out.println("search");
+//                System.out.println("search");
                 for (int i = search+4; i < args.length; i++) {
                     searchargs.add(args[i]);
                 }
-                System.out.println(searchargs);
+//                System.out.println(searchargs);
                 if (searchargs.size() == 7) {
                     if (!va.validateSelectedArg(args,search+4 )) {
                         printErrorMessage(Invalid_args);
