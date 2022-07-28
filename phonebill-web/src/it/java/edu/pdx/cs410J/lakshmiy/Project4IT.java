@@ -84,13 +84,13 @@ class Project4IT extends InvokeMainTestCase {
 
     @Test
     void testvalidSearchArgsnoOpts() {
-        MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "-search", "Dave","02/27/2022", "8:56" ,"am","02/27/2022", "10:27" ,"am" );
+        MainMethodResult result = invokeMain( Project4.class, "-search", "-host", "localhost" , "-port", "8080",  "Dave","02/27/2022", "8:56" ,"am","02/27/2022", "10:27" ,"am" );
         assertThat(result.getTextWrittenToStandardError(), containsString("200 :Successful response"));
     }
 
     @Test
     void testvalidSearchArgsnoOpts1() {
-        MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "-search", "sahithi","02/27/2022", "8:56" ,"am","02/27/2022", "10:27" ,"am" );
+        MainMethodResult result = invokeMain( Project4.class, "-search", "-host", "localhost" , "-port", "8080", "sahithi","02/27/2022", "8:56" ,"am","02/27/2022", "10:27" ,"am" );
         assertThat(result.getTextWrittenToStandardError(), containsString("Searched for Phone call that doesnot exist"));
     }
 
@@ -132,7 +132,7 @@ class Project4IT extends InvokeMainTestCase {
 
     @Test
     void testvalidSearchArgsnoOpts9() {
-        MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "-search", "sahithi","02/27/2022", "8:56" ,"am","02/2a/2022", "10:27" ,"am" );
+        MainMethodResult result = invokeMain( Project4.class, "-search", "-host", "localhost" , "-port", "8080", "sahithi","02/27/2022", "8:56" ,"am","02/2a/2022", "10:27" ,"am" );
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
     }
 
@@ -144,7 +144,7 @@ class Project4IT extends InvokeMainTestCase {
 
     @Test
     void testvalidSearchArgsnoOpts7() {
-        MainMethodResult result = invokeMain( Project4.class, "-host", "localhost" , "-port", "8080", "-search", "sahithi","02/27/2022", "8:56" ,"am","02/2a/2022", "10:27" ,"sm" );
+        MainMethodResult result = invokeMain( Project4.class, "-search", "-host", "localhost" , "-port", "8080",  "sahithi","02/27/2022", "8:56" ,"am","02/2a/2022", "10:27" ,"sm" );
         assertThat(result.getTextWrittenToStandardError(), containsString("Invalid input for date"));
     }
     @Test

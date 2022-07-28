@@ -166,13 +166,15 @@ public class Project4 {
                  * If valid arguments are passed in expected order.
                  * GEt call in case of -search option
                  */
-            } else if (search != 0) {
+            } else if (search != 0 && args.length > 5) {
                 ArrayList searchargs = new ArrayList<>();
-                for (int i = search; i < args.length; i++) {
+                System.out.println("search");
+                for (int i = search+4; i < args.length; i++) {
                     searchargs.add(args[i]);
                 }
+                System.out.println(searchargs);
                 if (searchargs.size() == 7) {
-                    if (!va.validateSelectedArg(args, search)) {
+                    if (!va.validateSelectedArg(args,search+4 )) {
                         printErrorMessage(Invalid_args);
                         return;
                     } else {
