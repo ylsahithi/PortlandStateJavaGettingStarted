@@ -69,7 +69,7 @@ public class PrettyPrinter extends AppCompatActivity {
                         PhoneCall pc = new PhoneCall(log[0], log[1], log[2], log[3], log[4]);
                         System.out.println(log);
                         Date begin_input = pc.getBeginTimeDate();
-                        if((begin_input.equals(begin_date) || begin_input.after(begin_date)) && (begin_input.equals(end_date) || begin_input.before(end_date))) {
+                        if(((begin_input.equals(begin_date)) || (begin_date.after(begin_input))) && ((begin_input.equals(end_date)) || (begin_input.before(end_date)))) {
                             res = "call :   "+ count + formatphoneBookEntry(pc);
                             count++;
                             Printresult = Printresult + res + "\n";
