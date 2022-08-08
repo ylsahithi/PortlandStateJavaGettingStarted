@@ -74,7 +74,7 @@ public class Readme extends Fragment {
         readme.append("The begin and end dates are expected to bbe in mm/dd/yyyy hh:mm am/pm format \n");
         readme.append("This application stores data in internal file system \n");
         readme.append("To view the data you have added check the print checkbox in add phone call section \n");
-        readme.append("To search based on customer name just give input for customer field alone \n To search for a call at a particular time give input for customer, begin and end time fields");
+        readme.append("To search based on customer name just give input for customer field alone \n To search for a call at a particular time give input for customer, begin and end time fields \n");
         readme.append("In case of error a new window shows the error messages close it and try giving input again \n");
         readme.append("This application shows high level error as invalid arguments, to know detailed error log check Run log \n");
         readme.setMovementMethod(new ScrollingMovementMethod());

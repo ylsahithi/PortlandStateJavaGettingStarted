@@ -36,7 +36,7 @@ public class ValidateArgs {
             Date begin_date = parseInputDate(begin);
             Date end_date = parseInputDate(end);
             if(!checkBeginAfterEnd(begin_date,end_date)){
-                this.Error_msg = this.Error_msg +  "Input end and begin time are equal or end time is before begin time";
+                this.Error_msg = this.Error_msg +  "Input end and begin time are equal or end time is before begin time \n";
                 System.err.println("Input end and begin time are equal or end time is before begin time");
                 return this.Error_msg;
             }
@@ -54,6 +54,7 @@ public class ValidateArgs {
      */
 
     public String validateSelectedArg(String customer, String begin, String end) {
+        System.out.println(begin + end +" selected args ");
         String[] start_time = begin.split(" ");
         String [] end_time = end.split(" ");
         if ((checkForvalidString(customer)) && (checkForValidDate(start_time[0])) && (checkForValidTime(start_time[1])) && (checkforvalidFormat(start_time[2]))
@@ -61,7 +62,7 @@ public class ValidateArgs {
             Date begin_date = parseInputDate(begin);
             Date end_date = parseInputDate(end);
             if(!checkBeginAfterEnd(begin_date,end_date)){
-                this.Error_msg = this.Error_msg +  "Input end and begin time are equal or end time is before begin time";
+                this.Error_msg = this.Error_msg +  "Input end and begin time are equal or end time is before begin time \n";
                 System.err.println("Input end and begin time are equal or end time is before begin time");
                 return this.Error_msg;
             }
@@ -79,7 +80,7 @@ public class ValidateArgs {
 
     public boolean checkForvalidString(String name) {
         if (name.trim().isEmpty() || name.length() == 1 || (name.replaceAll("[^a-zA-Z]", "").length() == 0)) {
-            this.Error_msg = this.Error_msg +  "Invalid customer name";
+            this.Error_msg = this.Error_msg +  "Invalid customer name \n";
             System.err.println("Invalid customer name");
             return false;
         }
@@ -100,15 +101,15 @@ public class ValidateArgs {
         }
         String phoneNumber = Number.replaceAll("-","");
         if (phoneNumber.length() < 10) {
-            this.Error_msg = this.Error_msg + "Invalid phone number, number of digits less than 10";
+            this.Error_msg = this.Error_msg + "Invalid phone number, number of digits less than 10 \n";
             System.err.println("Invalid phone number, number of digits less than 10");
             return false;
         } else if (phoneNumber.startsWith("0")) {
-            this.Error_msg = this.Error_msg + " Invalid phone number, a phone number cannot start with zero";
+            this.Error_msg = this.Error_msg + " Invalid phone number, a phone number cannot start with zero \n";
             System.err.println(" Invalid phone number, a phone number cannot start with zero");
             return false;
         } else if (!phoneNumber.matches("[0-9]+")) {
-            this.Error_msg = this.Error_msg + "Invalid input for phone number, it cannot contain letters";
+            this.Error_msg = this.Error_msg + "Invalid input for phone number, it cannot contain letters \n";
             System.err.println("Invalid input for phone number, it cannot contain letters");
             return false;
         }
@@ -127,20 +128,23 @@ public class ValidateArgs {
         if(date.isEmpty()||date == null){
             return false;
         }
-        try {
-            SimpleDateFormat validFormat = new SimpleDateFormat("MM/dd/yyyy");
-            Date formattedDate = validFormat.parse(date);
-            if (date.equals(validFormat.format(formattedDate))) {
-                return true;
-            } else {
-                this.Error_msg = this.Error_msg + "Invalid input for date";
+        else {
+            System.out.println(date);
+            try {
+                SimpleDateFormat validFormat = new SimpleDateFormat("MM/dd/yyyy");
+                Date formattedDate = validFormat.parse(date);
+                if (date.equals(validFormat.format(formattedDate))) {
+                    return true;
+                } else {
+                    this.Error_msg = this.Error_msg + "Invalid input for date \n";
+                    System.err.println("Invalid input for date");
+                    return false;
+                }
+            } catch (ParseException PE) {
+                this.Error_msg = this.Error_msg + "Invalid input for date \n";
                 System.err.println("Invalid input for date");
                 return false;
             }
-        } catch (ParseException PE) {
-            this.Error_msg = this.Error_msg + "Invalid input for date";
-            System.err.println("Invalid input for date");
-            return false;
         }
     }
 
@@ -162,7 +166,7 @@ public class ValidateArgs {
             return result;
         }
         catch (ParseException PE) {
-            this.Error_msg = this.Error_msg + "Invalid input for date";
+            this.Error_msg = this.Error_msg + "Invalid input for date \n";
             System.err.println("Invalid input for date");
             return null;
         }
@@ -180,11 +184,12 @@ public class ValidateArgs {
             return false;
         }
         try {
+            System.out.println(time);
             String[] hourMin = time.split(":");
             if ((Integer.parseInt(hourMin[0]) < 24) && (Integer.parseInt(hourMin[1]) < 60)) {
                 return true;
             }
-            this.Error_msg = this.Error_msg + "Invalid input for time";
+            this.Error_msg = this.Error_msg + "Invalid input for time \n";
             System.err.println("Invalid input for time");
             return false;
         } catch (Exception e) {
@@ -200,12 +205,15 @@ public class ValidateArgs {
      *
      */
     public  boolean checkforvalidFormat(String time) {
+        System.out.println(time);
         if(time.isEmpty()||time == null){
             return false;
         }
         if(time.equalsIgnoreCase("AM") || time.equalsIgnoreCase("PM")){
             return true;
         }
+        this.Error_msg = this.Error_msg + "Invalid input for time \n";
+        System.err.println("Invalid input for time");
         return false;
     }
 

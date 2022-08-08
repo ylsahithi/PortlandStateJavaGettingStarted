@@ -63,7 +63,8 @@ public class Home extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_home, container, false);
         TextView home = v.findViewById(R.id.home_tv);
         home.setText("welcome to phone bill application \n");
-        home.append("click on readme to know more about application");
+        home.append("Click on the + sign below to navigate through menu \n +home \n +add phone call \n +search call \n + readme \n");
+        home.append("click on readme to know more about application \n");
         return v;
     }
 }

@@ -87,12 +87,16 @@ public class Search extends Fragment {
                         startActivity(intent);
                     } else {
                         String valid_flag = va.validateSelectedArg(customer, begin_date, end_date);
+                        System.out.println(valid_flag + "valid_flag");
                         if (valid_flag.length() > 1) {
                             System.err.println("Invalid arguments passed as parameters");
                             valid_flag = valid_flag + "Invalid arguments passed as parameters";
                             Intent intent = new Intent(getActivity(), ErrorPopup.class);
                             intent.putExtra("Error", valid_flag);
                             startActivity(intent);
+                            Customer.setText("");
+                            Begin.setText("");
+                            End.setText("");
                         } else {
                             Intent intent = new Intent(getActivity(), PrettyPrinter.class);
                             PhoneCall pc = new PhoneCall(customer, "", "", begin_date, end_date);
