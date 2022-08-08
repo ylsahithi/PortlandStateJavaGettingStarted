@@ -73,5 +73,4 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
             }
         };
 
-    }
 }
