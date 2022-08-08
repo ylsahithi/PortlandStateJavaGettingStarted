@@ -17,12 +17,10 @@
      android:id = "@+id/search_lyt"
      android:icon="@drawable/ic_add_24px"
      android:text="@string/search_calls"
-     app:showAsAction="ifRoom|withText"
      android:title="@string/search_calls" />
  <item
      android:id = "@+id/readme_lyt"
      android:icon="@drawable/ic_add_24px"
      android:text="@string/readme"
-     app:showAsAction="always|withText"
      android:title="@string/readme_title" />
 </menu>
