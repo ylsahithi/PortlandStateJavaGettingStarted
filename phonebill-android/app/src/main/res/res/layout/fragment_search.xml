@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_activity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    tools:context=".Search">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="339dp"
+        android:layout_height="706dp"
+        android:text="@string/search_calls"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/customer_name"
+        android:layout_width="135dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="172dp"
+        android:text="@string/customer_name_req"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/customer_name_et"
+        android:layout_width="148dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="160dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/customer_name"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/Begindate"
+        android:layout_width="122dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="240dp"
+        android:text="@string/begin_date_time"
+        app:layout_constraintBottom_toTopOf="@+id/end_date"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/end_date_et"
+        android:layout_width="170dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="316dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/end_date"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/end_date"
+        android:layout_width="113dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="360dp"
+        android:text="@string/end_date_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/begin_date_et"
+        android:layout_width="163dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="224dp"
+        app:layout_constraintBottom_toTopOf="@+id/end_date_et"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toEndOf="@+id/Begindate"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <Button
+        android:id="@+id/Search_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="436dp"
+        android:text="Search"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.064" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
