@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/home_lyt">
+    <fragment
+        android:id="@+id/home_lyt"
+        android:name="edu.pdx.cs410J.lakshmiy.Home"
+        android:label="PhoneBill"
+        android:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/add_phone_call_lyt"
+        android:name="edu.pdx.cs410J.lakshmiy.Addphonecalls"
+        android:label="Addcalls"
+        android:layout="@layout/fragment_addphonecalls" />
+    <fragment
+        android:id="@+id/search_lyt"
+        android:name="edu.pdx.cs410J.lakshmiy.Search"
+        android:label="Search"
+        android:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/readme_lyt"
+        android:name="edu.pdx.cs410J.lakshmiy.Readme"
+        android:label="Readme"
+        android:layout="@layout/fragment_readme" />
+</navigation>
