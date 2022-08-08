@@ -1,4 +1,30 @@
 <resources>
     <string name="app_name">Phone Bill</string>
-    <string name="advanced_java_programming">Advanced Java Programming!</string>
+    <string name="advanced_java_programming">Welcome to PhoneBill Application</string>
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    <string name="this_form_adds_phonecalls_to_phonelog">This application adds phone calls to customer phone log</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="caller_number">Caller Number</string>
+    <string name="callee_number">Callee Number</string>
+    <string name="begin_date_time">Begin Date, Time</string>
+    <string name="end_date_time">End Date, Time</string>
+    <string name="date_format">mm/dd/yyyy hh:mm am/pm</string>
+    <string name="print">Print latest Phone Call details</string>
+    <string name="add">Add a New Phone Call</string>
+    <string name="search_phonecall">This Entry Finds Phone Call for a Customer</string>
+    <string name="view_entire_log">This Form shows entire call log</string>
+    <string name="customer_name_req">Customer Name*</string>
+    <string name="search_call_text">Customer name is mandatory for searching call log \n if customer name is given all the logs of customer are printed \n If begin and end date are given as input, call that started after begin time and ended before end time are printed \n</string>
+    <string name="search_results">Search Results</string>
+    <string name="home_contents">Home Contents</string>
+    <string name="close">Exit</string>
+    <string name="search_calls">Search Calls</string>
+    <string name="start_application">Start</string>
+    <string name="home">Home</string>
+    <string name="readme">REadme</string>
+    <string name="readme_title">Readme</string>
+    <string name="home_nav">Home</string>
+    <string name="home_title">Home</string>
+    <string name="hint_number">123-456-789</string>
+    <string name="hint_date">mm/dd/yyyy hh:mm am/pm</string>
 </resources>
